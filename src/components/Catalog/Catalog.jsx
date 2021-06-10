@@ -6,10 +6,10 @@ export default function Catalog() {
   return (
     <div className={styles.catalogContainer}>
       {Catalog1.map(item => (
-        <div>
-          <img src={item.img2}  className={styles.productImg} alt="Memphis Grizzlies Fanatics Branded Iconic Splatter Graphic T-Shirt" />
-          <h2>{item.title}</h2>
-          <p>US${item.price}</p>
+        <div className={styles.product}>
+          <img src={item.img[0]}  className={styles.productImg} alt={item.title} />
+          <p className={styles.price}>US$ {item.price.toFixed(2)}</p>
+          <p className={styles.title}>{item.title}</p>
         </div>
       ))}
     </div>

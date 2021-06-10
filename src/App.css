@@ -6,6 +6,9 @@
 #root{
   max-width: 1200px;
   margin: auto;
+  font-family: 'Open Sans';
+  color: #242424;
+
 }
 .App {
   text-align: center;

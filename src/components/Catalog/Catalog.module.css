@@ -1,9 +1,26 @@
 .catalogContainer{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
+    /* grid-gap: 20px; */
     padding: 20px 0;
+}
+.product{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.205);
+    padding: 30px 10px;
 }
 .productImg{
     width: 100%;
+    padding-bottom: 20px;
+}
+.price{
+    font-weight: 600;
+    font-size: 20px;
+    text-align: left;
+    padding-bottom: 20px;
+
+}
+.title{
+    font-weight: 400;
+    font-size: 18px;
+    text-align: left;
 }
