@@ -1,0 +1,24 @@
+.footer{
+    display: grid;
+    grid-auto-flow: column;
+    background-color: #f4f5f5;
+    border-radius: 5px;
+    padding: 25px;
+}
+.footerListLinks{
+    list-style-type: none;
+}
+.footerTitleLink{
+    font-size: 15px;
+}
+.footerLink{
+    font-size: 13px;
+    cursor: pointer;
+}
+.footerLink:hover{
+    text-decoration: underline;
+}
+.footerTitleLink, .footerLink{
+    text-align: left;
+    padding-bottom: 10px;
+}
