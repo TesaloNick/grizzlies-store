@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Header.module.css'
-import logoImg from './../../assets/img/logo.svg'
-import cartImg from './../../assets/img/cart-2-64.png'
+import logoImg from './../../assets/img/Header/logo.svg'
+import cartImg from './../../assets/img/Header/cart-2-64.png'
 import Nav from './Nav/Nav'
 import {NavLink} from 'react-router-dom'
 

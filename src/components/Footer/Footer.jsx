@@ -1,5 +1,9 @@
 import React from 'react';
 import styles from './Footer.module.css'
+import twitter from './../../assets/img/Footer/twitter.svg'
+import facebook from './../../assets/img/Footer/facebook.svg'
+import instagram from './../../assets/img/Footer/instagram.svg'
+import youtube from './../../assets/img/Footer/youtube.svg'
 
 
 export default function Footer() {
@@ -18,10 +22,10 @@ export default function Footer() {
     },
   ]
   const social = [
-    {img:'2', link: '3'},
-    {img:'', link: ''},
-    {img:'', link: ''},
-    {img:'', link: ''}
+    {name: 'twitter', link:'https://twitter.com/NBAUK', img: twitter},
+    {name: 'facebook', link:'https://www.facebook.com/nbauk', img: facebook},
+    {name: 'instagram', link:'https://www.instagram.com/nbaeurope', img: instagram},
+    {name: 'youtube', link:'https://www.youtube.com/c/nbaeurope', img: youtube}
   ]
 
   return (
@@ -38,14 +42,13 @@ export default function Footer() {
       ))}
       <div className={styles.footerLinksBlock}>
         <h3 className={styles.footerTitleLink}>Follow Us</h3>
-        {social.map(item => (
-          <div>
+        <div className={styles.socialLinksBlock}>
+          {social.map(item => (
             <a href={item.link}>
-              <img src={item.img} alt="" />
+              <img src={item.img} alt={item.name} className={styles.socialImg} />
             </a>
-          </div>
-        ))}
-        
+          ))}
+        </div>
       </div>
       
 

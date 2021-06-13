@@ -6,8 +6,6 @@ import Catalog from './components/Catalog/Catalog'
 import Footer from './components/Footer/Footer'
 import Men from './components/Men/Men'
 
-
-
 function App() {
   return (
     <div className="App">
