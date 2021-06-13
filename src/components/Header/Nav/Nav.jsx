@@ -1,12 +1,16 @@
+
 import React from 'react';
 import styles from './Nav.module.css'
+import {NavLink} from 'react-router-dom'
 
 export default function Nav() {
   
   return (
     <nav className={styles.nav}>
       <ul>
-        <li>MEN</li>
+        <NavLink to='/men'>
+          <li>MEN</li>
+        </NavLink>
         <li>WOMEN</li>
         <li>KIDS</li>
         <li>JERSEY</li>
