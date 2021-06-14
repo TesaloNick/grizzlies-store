@@ -85,9 +85,9 @@ export default function Footer() {
         </ul>
         <p>© 2021, Fanatics, Inc. and/or its affiliated entities. All Rights Reserved. No portion of this site may be reproduced or duplicated without the express permission of Fanatics.</p>
         <div className={styles.paymentBlock} >
-            {payment.map(item => (
-              <img src={item} className={styles.paymentImg} />
-            ))}
+          {payment.map(item => (
+            <img src={item} className={styles.paymentImg} />
+          ))}
         </div>
       </div>
       

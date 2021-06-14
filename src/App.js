@@ -4,7 +4,7 @@ import {BrowserRouter, Switch, Route, NavLink} from 'react-router-dom'
 import Header from './components/Header/Header'
 import Catalog from './components/Catalog/Catalog'
 import Footer from './components/Footer/Footer'
-import Men from './components/Men/Men'
+import Cart from './components/Cart/Cart'
 import LogIn from './components/Registration/LogIn'
 import SignUp from './components/Registration/SignUp'
 
@@ -24,10 +24,10 @@ function App() {
             <LogIn />
           </Route>
           <Route path='/cart'>
-            
+            <Cart />
           </Route>
           <Route path='/men'>
-            <Men />
+            
           </Route>
           <Route path='/women'>
 
