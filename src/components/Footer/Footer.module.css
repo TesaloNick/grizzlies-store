@@ -1,11 +1,10 @@
-.footer{
+.footerGrey{
     position: relative;
     display: grid;
     grid-auto-flow: column;
-    /* border-radius: 5px; */
     padding: 25px;
 }
-.footer::before{
+.footerGrey::before{
     content: '';
     position: absolute;
     background-color: #f4f5f5;
@@ -15,7 +14,7 @@
     left: calc(50% - 50vw);
     z-index: -1;
 }
-.footerListLinks{
+.footerListLinksGrey{
     list-style-type: none;
 }
 .footerTitleLink{
@@ -23,21 +22,56 @@
 }
 .footerLink{
     font-size: 13px;
-    cursor: pointer;
 }
 .footerLink:hover{
     text-decoration: underline;
 }
-.footerTitleLink, .footerLink{
+.footerLink{
+    text-decoration: none;
+    color: #242424;
+}
+.footerTitleLink, footer ul li{
     text-align: left;
     padding-bottom: 10px;
 }
 .socialLinksBlock{
     display: flex;
-    /* grid-auto-flow: column; */
     width: 100%;
 }
 .socialImg{
     width: 30px;
     margin-right: 10px;
+    border-radius: 50%;
+}
+.socialImg:hover{
+    background-color: rgba(128, 128, 128, 0.486);
+}
+.footerWhite{
+    display: grid;
+    grid-auto-flow: row;
+    padding: 20px 0;
+    grid-gap: 10px;
+}
+.footerWhite p{
+    font-size: 13px;
+    text-align: left;
+}
+.footerListLinksWhite{
+    display: flex;
+    list-style-type: none;
+}
+.footerListLinksWhite li::after{
+    content: '|';
+    padding: 0 10px;
+}
+.footerListLinksWhite li:last-of-type::after{
+  content: '';
+}
+.paymentBlock{
+    display: flex;
+    justify-content: flex-end;
+}
+.paymentImg{
+    width: 30px;
+    margin: 0 10px;
 }
