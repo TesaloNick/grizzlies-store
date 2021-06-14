@@ -1,30 +1,38 @@
-.head{
-    position: relative;
-    display: flex;
-    justify-content: space-between;
+.nbaHead{
+    font-size: 13px;
+    display: grid; 
     align-items: center;
-    padding: 10px 50px;
+    grid-template-columns: 2fr 10fr 1fr;
 }
-.head::before{
-    content: '';
-    position: absolute;
-    background-color: #5D76A9;
-    width: 100vw;
-    height: 100%;
-    top: 0;
-    left: calc(50% - 50vw);
-    z-index: -1;
+.nbaHead img{
+    height: 40px;
+    padding: 5px;
 }
-.cart{
-    position: relative;
+.registerButtons{
+    justify-self: end;
     display: grid;
     grid-auto-flow: column;
+    list-style-type: none;
+    text-decoration: none;
+}
+.registerButtons li{
+    padding: 0 10px;
+    color: #242424;
+}
+.registerButtons li:hover{
+    text-decoration: underline;
+}
+.registerButtons a{
+    text-decoration: none;
+}
+.cart{
+    justify-self: end;
+    position: relative;
+    display: grid;
     justify-items: center;
     align-items: center;
     background-color: #e61a4d;
-    width: 80px;
-    padding: 15px 0;
-    border-radius: 20px;
+    width: 60px;
 }
 .cart span{
     position: absolute;
@@ -35,17 +43,35 @@
     align-items: center;
     justify-content: center;
     font-family: 'Open Sans';
-    font-size: 15px;
+    font-size: 13px;
     color: white;
     font-weight: 600;
     background-color: black;
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
 }
+.cartImg{
+    padding: 5px;
+}
+.grizzliesHead{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 50px;
+}
+.grizzliesHead::before{
+    content: '';
+    position: absolute;
+    background-color: #5D76A9;
+    width: 100vw;
+    height: 100%;
+    top: 0;
+    left: calc(50% - 50vw);
+    z-index: -1;
+}
+
 .logoImg{
     width: 200px;
-}
-.cartImg{
-    width: 30px;
 }

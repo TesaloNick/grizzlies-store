@@ -5,6 +5,8 @@ import Header from './components/Header/Header'
 import Catalog from './components/Catalog/Catalog'
 import Footer from './components/Footer/Footer'
 import Men from './components/Men/Men'
+import LogIn from './components/Registration/LogIn'
+import SignUp from './components/Registration/SignUp'
 
 function App() {
   return (
@@ -14,6 +16,12 @@ function App() {
         <Switch>
           <Route exact path='/'> {/* Route для главной страницы содержит prop exact, благодаря которому пути сравниваются строго*/}
             <Catalog />
+          </Route>
+          <Route path='/sign-up'>
+            <SignUp />
+          </Route>
+          <Route path='/log-in'>
+            <LogIn />
           </Route>
           <Route path='/cart'>
             

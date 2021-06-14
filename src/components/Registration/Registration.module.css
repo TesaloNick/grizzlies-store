@@ -1,0 +1,48 @@
+.registrationBlock{
+    width: 400px;
+    margin: 40px auto;
+    padding: 40px;
+    border: 3px solid black;
+}
+.title{
+    color: #242424;
+    font-weight: 400;
+}
+.title + p{
+    color: #686868;
+    padding: 10px 0;
+}
+.registrationRoute{
+    color: #686868;
+}
+.inputRegistration{
+    display: block;
+    padding: 13px;
+    width: 100%;
+    margin: 15px 0;
+    border: 1px solid #b5b5b5;
+}
+.inputRegistration::placeholder{
+    font-size: 15px;
+    color: #b5b5b5;
+    font-style: italic;
+}
+
+.sendRegistrationInfo{
+    cursor: pointer;
+    width: 100%;
+    font-size: 15px;
+    color: white;
+    padding: 13px 0;
+    border-radius: 5px;
+    display: block;
+    margin: 10px auto;
+    border: 0px;
+    background-color: #e61a4d;
+    margin-top: 40px;
+}
+.sendRegistrationInfo:hover{
+    background-color: #d01745;
+    box-shadow: inset 0 -2px 0 rgb(0 0 0 / 30%);
+    transition: 0.5s;
+}
