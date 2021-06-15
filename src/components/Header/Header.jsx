@@ -1,18 +1,20 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styles from './Header.module.css'
 import logoImg from './../../assets/img/Header/logo.svg'
 import nbaLogo from './../../assets/img/Header/nbalogo.svg'
 import cartImg from './../../assets/img/Header/cart.png'
 import Nav from './Nav/Nav'
 import {NavLink} from 'react-router-dom'
+import CartData from './../../context';
 
 export default function Header() {
+  const data = useContext(CartData)
   
   return (
     <header>
       <div className={styles.nbaHead}>
         <div>
-          <a href="https://global.nbastore.com/"><img src={nbaLogo} alt="nbaLogo" /></a>  
+          <NavLink to='/'><img src={nbaLogo} alt="nbaLogo" /></NavLink> 
         </div>
         <ul className={styles.registerButtons}>
           <NavLink to='/sign-up'>
@@ -25,7 +27,7 @@ export default function Header() {
         <NavLink to='/cart' className={styles.cart}>
           <div>
             <img src={cartImg} alt="cart-image" className={styles.cartImg} />
-            <span>12</span>
+            <span>{data.cartProducts.length}</span>
           </div>
         </NavLink>
       </div>

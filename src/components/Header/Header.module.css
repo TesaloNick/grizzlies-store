@@ -3,6 +3,10 @@
     display: grid; 
     align-items: center;
     grid-template-columns: 2fr 10fr 1fr;
+    /* height: 45px; */
+    position: fixed;
+    background-color: white;
+    z-index: 2;
 }
 .nbaHead img{
     height: 40px;
@@ -60,6 +64,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
+    /* margin-top: 45px; */
 }
 .grizzliesHead::before{
     content: '';

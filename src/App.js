@@ -10,7 +10,7 @@ import SignUp from './components/Registration/SignUp'
 import CartData from './context';
 
 function App() {
-  const [cartProducts, setCartProducts] = useState([])
+  const [cartProducts, setCartProducts] = useState(JSON.parse(localStorage.getItem('cartProducts')) || [])
 
   return (
     <div className="App">

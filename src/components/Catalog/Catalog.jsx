@@ -9,6 +9,7 @@ export default function Catalog() {
   const addToCart = (index) => {
     const productsInCart = data.cartProducts
     const updateCart = [...productsInCart, CatalogData[index]]
+    localStorage.setItem('cartProducts', JSON.stringify(updateCart))
     data.setCartProducts(updateCart)
   }
   console.log(data.cartProducts);

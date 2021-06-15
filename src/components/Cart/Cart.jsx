@@ -27,11 +27,11 @@ const useStyles = makeStyles((theme) => ({
 export default function Cart() {
   const data = useContext(CartData)
 
-  const product = data.cartProducts
+  const product = JSON.parse(localStorage.getItem('cartProducts')) || []
 
   const classes = useStyles();
   const [state, setState] = React.useState({
-    age: '',
+    size: '',
     name: 'hai',
   });
 
@@ -45,9 +45,16 @@ export default function Cart() {
 
   const deleteFromCart = (index) => {
     const updateProductsCart = data.cartProducts.filter((item, idx) => index !== idx)
+    localStorage.setItem('cartProducts', JSON.stringify(updateProductsCart))
     data.setCartProducts(updateProductsCart)
   }
+  const changeQuantity = (event) => {
+    console.log(event);
+  }
   
+  let sumOfMoney = []
+  product.map(item => sumOfMoney.push(item.price))
+
   return (
     <div className={styles.mainCartBlock}>
       <h2>Your Items</h2>
@@ -62,18 +69,18 @@ export default function Cart() {
                 <p>{item.title}</p>
                 <div className={styles.productSelectorBlock}>
                   <FormControl variant="outlined" className={classes.formControl}>
-                    <InputLabel htmlFor="outlined-age-native-simple">Age</InputLabel>
+                    <InputLabel htmlFor="outlined-age-native-simple">Size</InputLabel>
                     <Select
                       native
-                      value={state.age}
+                      value={state.size}
                       onChange={handleChange}
-                      label="Age"
+                      label="Size"
                       inputProps={{
-                        name: 'age',
+                        name: 'size',
                         id: 'outlined-age-native-simple',
                       }}
                     >
-                      {item.size.map(size => <option value={10}>{size}</option>)}
+                      {item.size.map(size => <option value={size}>{size}</option>)}
                     </Select>
                   </FormControl>
                   <TextField
@@ -84,6 +91,7 @@ export default function Cart() {
                       shrink: true,
                     }}
                     variant="outlined"
+                    onChange={() => changeQuantity()}
                   />
                 </div>
 
@@ -99,7 +107,7 @@ export default function Cart() {
         </div>
         <div className={styles.totalPriceBlock}>
           <p>Cart Total</p>
-          <p>US$<span>100</span></p>
+          <p>US$<span>{sumOfMoney.reduce((a,b) => a+b).toFixed(2)}</span></p>
         </div>
       </div>
 
