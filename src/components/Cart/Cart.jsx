@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useRef} from 'react';
 import styles from './Cart.module.css'
 import close from './../../assets/img/Cart/close.svg'
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,14 +26,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Cart() {
   const data = useContext(CartData)
-
-  const product = JSON.parse(localStorage.getItem('cartProducts')) || []
-
+  const inputEl = useRef(null);
+  console.log(data.quantity);
   const classes = useStyles();
   const [state, setState] = React.useState({
     size: '',
     name: 'hai',
   });
+  console.log(data.quantity);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -48,19 +48,25 @@ export default function Cart() {
     localStorage.setItem('cartProducts', JSON.stringify(updateProductsCart))
     data.setCartProducts(updateProductsCart)
   }
-  const changeQuantity = (event) => {
-    console.log(event);
+  const changeQuantity = (event, index) => {
+    // console.log(index, 1, +event.target.value);
+    data.quantity[index] = +event.target.value
+    // const a = quantity.splice(index, 1, +event.target.value)
+    console.log(data.quantity);
+    data.setQuantity(data.quantity)
   }
-  
-  let sumOfMoney = []
-  product.map(item => sumOfMoney.push(item.price))
+  const onButtonClick = () => {
+    // `current` указывает на смонтированный элемент `input`
+    console.log(inputEl.current.value++)
+  };
+  const sumOfMoney = data.cartProducts.map(item => item.price)
 
   return (
     <div className={styles.mainCartBlock}>
       <h2>Your Items</h2>
       <div className={styles.cartBlock}>
         <div>
-          {product.map((item, index) => (
+          {data.cartProducts.map((item, index) => (
             <div className={styles.productBlock}>
               <div className={styles.productImgBlock}>
                 <img src={item.img[0]} alt="" />
@@ -68,6 +74,7 @@ export default function Cart() {
               <div className={styles.productInformationBlock}>
                 <p>{item.title}</p>
                 <div className={styles.productSelectorBlock}>
+                  <input type="number" value={inputEl}  ref={inputEl} onChange={() => onButtonClick()} />
                   <FormControl variant="outlined" className={classes.formControl}>
                     <InputLabel htmlFor="outlined-age-native-simple">Size</InputLabel>
                     <Select
@@ -85,13 +92,19 @@ export default function Cart() {
                   </FormControl>
                   <TextField
                     id="outlined-number"
+                    value={data.quantity[index]}
+                    // min='0'
                     label="Quantity"
                     type="number"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
+                    InputLabelProps={{shrink: true,}}
                     variant="outlined"
-                    onChange={() => changeQuantity()}
+                    onChange={(event) => {
+                      // console.log(index, 1, +event.target.value);
+                      data.quantity[index] = +event.target.value
+                      // const a = quantity.splice(index, 1, +event.target.value)
+                      console.log(data.quantity);
+                      data.setQuantity(data.quantity)
+                    }}
                   />
                 </div>
 
@@ -107,7 +120,16 @@ export default function Cart() {
         </div>
         <div className={styles.totalPriceBlock}>
           <p>Cart Total</p>
-          <p>US$<span>{sumOfMoney.reduce((a,b) => a+b).toFixed(2)}</span></p>
+          <p>US$
+            <span>
+              {localStorage.getItem('cartProducts') ? 
+                (JSON.parse(localStorage.getItem('cartProducts')).length > 0 ?
+                  sumOfMoney.reduce((a,b) => a+b).toFixed(2) : 
+                  '0') : 
+                '0'
+              }
+            </span>
+          </p>
         </div>
       </div>
 

@@ -79,7 +79,8 @@ export default  [
         'Fanatics Branded', 
         '100% cotton', 
         'This product is despatched directly from the supplier. Please allow 7 working days for delivery (UK) EU & ROW delivery may take longer. International Express delivery is not available for this product.'
-      ],
+      ], 
+quantity: 1,
     },
     { id: uuid(), 
       img: [
@@ -98,7 +99,8 @@ export default  [
         'Fanatics Branded', 
         '100% cotton', 
         'This product is despatched directly from the supplier. Please allow 7 working days for delivery (UK) EU & ROW delivery may take longer. International Express delivery is not available for this product.'
-      ],
+      ], 
+quantity: 1,
     },
     { id: uuid(), 
       img: [
@@ -113,7 +115,8 @@ export default  [
       details: [
         '100% Polyester',
         'Country of Origin: Thailand'
-      ],
+      ], 
+quantity: 1,
     },
     { id: uuid(), 
       img: [
@@ -134,7 +137,8 @@ export default  [
         'Fanatics Branded', 
         '100% cotton', 
         'This product is despatched directly from the supplier. Please allow 7 working days for delivery (UK) EU & ROW delivery may take longer. International Express delivery is not available for this product.'
-      ],
+      ], 
+quantity: 1,
     },
     { id: uuid(), 
       img: [
@@ -156,7 +160,8 @@ export default  [
         'Width at widest point: 10 inches',
         'Top elastic length: 12 inches',
         'Bottom elastic length: 9 inches',
-      ],
+      ], 
+quantity: 1,
     },
     { id: uuid(), 
       img: [
@@ -178,7 +183,8 @@ export default  [
         'Width at widest point: 10 inches',
         'Top elastic length: 12 inches',
         'Bottom elastic length: 9 inches',
-      ],
+      ], 
+quantity: 1,
     },
     { id: uuid(), 
       img: [
@@ -193,7 +199,8 @@ export default  [
       details: [
         '100% Polyester woven',
         'Country of Origin: China',
-      ],
+      ], 
+quantity: 1,
     },
     { id: uuid(), 
       img: [
@@ -208,7 +215,8 @@ export default  [
       details: [
         '100% Polyester woven',
         'Country of Origin: China',
-      ],
+      ], 
+quantity: 1,
     },
     { id: uuid(), 
       img: [
@@ -222,7 +230,8 @@ export default  [
       details: [
         'Ceramic',
         'Country of Origin: China',
-      ],
+      ], 
+quantity: 1,
     },
     { id: uuid(), 
       img: [
@@ -243,7 +252,8 @@ export default  [
         'Fanatics Branded', 
         '100% cotton', 
         'This product is despatched directly from the supplier. Please allow 7 working days for delivery (UK) EU & ROW delivery may take longer. International Express delivery is not available for this product.'
-      ],
+      ], 
+quantity: 1,
     },
     { id: uuid(), 
       img: [
@@ -263,7 +273,8 @@ export default  [
         'Fanatics Branded', 
         '100% cotton', 
         'This product is despatched directly from the supplier. Please allow 7 working days for delivery (UK) EU & ROW delivery may take longer. International Express delivery is not available for this product.'
-      ],
+      ], 
+quantity: 1,
     },
     { id: uuid(), 
       img: [
@@ -278,7 +289,8 @@ export default  [
       details: [
         '100% Polyester',
         'Country of Origin: Vietnam'
-      ],
+      ], 
+quantity: 1,
     },
     { id: uuid(), 
       img: [
@@ -296,7 +308,8 @@ export default  [
         'Lightweight comfort',
         'Machine wash',
         '100% polyester',
-      ],
+      ], 
+quantity: 1,
     },
     { id: uuid(), 
       img: [
@@ -312,7 +325,8 @@ export default  [
         'Memphis Grizzlies Icon edition detailing',
         'Screen printed Jaren Jackson Jr name and number',
         'Lightweight comfort',
-      ],
+      ], 
+quantity: 1,
     },
     { id: uuid(), 
       img: [
@@ -330,7 +344,8 @@ export default  [
         '6mm sockliner adds a layer of cushion',
         'on the right midsole',
         'on the left midsole',
-      ],
+      ], 
+quantity: 1,
     },
     { id: uuid(), 
       img: [
@@ -351,7 +366,8 @@ export default  [
         'Fanatics Branded', 
         '100% cotton', 
         'This product is despatched directly from the supplier. Please allow 7 working days for delivery (UK) EU & ROW delivery may take longer. International Express delivery is not available for this product.'
-      ],
+      ], 
+quantity: 1,
     },
     { id: uuid(), 
       img: [
@@ -372,7 +388,8 @@ export default  [
         'Fanatics Branded', 
         '100% cotton', 
         'This product is despatched directly from the supplier. Please allow 7 working days for delivery (UK) EU & ROW delivery may take longer. International Express delivery is not available for this product.'
-      ],
+      ], 
+quantity: 1,
     },
     { id: uuid(), 
       img: [
@@ -393,7 +410,8 @@ export default  [
         'Fanatics Branded', 
         '100% cotton', 
         'This product is despatched directly from the supplier. Please allow 7 working days for delivery (UK) EU & ROW delivery may take longer. International Express delivery is not available for this product.'
-      ],
+      ], 
+quantity: 1,
     },
     { id: uuid(), 
       img: [
@@ -412,7 +430,8 @@ export default  [
         'Do not iron on print', 
         'Fanatics Branded', 
         '100% cotton', 
-      ],
+      ], 
+quantity: 1,
     },
     { id: uuid(), 
       img: [
@@ -425,7 +444,8 @@ export default  [
       size: [], 
       details: [
         '100% Acrylic knit', 
-      ],
+      ], 
+quantity: 1,
     },
     { id: uuid(), 
       img: [
@@ -439,7 +459,8 @@ export default  [
       size: ['S', 'L', 'M'], 
       details: [
         '100% Acrylic knit', 
-      ],
+      ], 
+quantity: 1,
     },
 
   ]
