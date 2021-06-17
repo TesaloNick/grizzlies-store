@@ -26,9 +26,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Cart() {
   const data = useContext(CartData)
-  // const [quantity, setQuantity] = React.useState(data.cartProducts.map(item => item.quantity)) 
-  // const [price, setPrice] = React.useState(data.cartProducts.map(item => item.price)) 
-  const ref = useRef(data.cartProducts.reduce((a,b) =>  a.price*a.quantity + b.price*b.quantity))
+  let initialTotalPrice = 0; // Чтобы суммировать значения, содержащиеся в массиве объектов, вы должны указать initialTotalPrice, чтобы каждый элемент смог пройти через callback
+  const ref = useRef(localStorage.getItem('cartProducts') ?  // значение общей суммы товаров в корзине
+    (JSON.parse(localStorage.getItem('cartProducts')).length > 0 ?
+    data.cartProducts.reduce(function (a,b) {
+      return a + b.price*b.quantity
+    }, initialTotalPrice).toFixed(2) : 
+      '0') : 
+    '0'
+  )
   const classes = useStyles();
   const [state, setState] = React.useState({
     size: '',
@@ -49,7 +55,8 @@ export default function Cart() {
     localStorage.setItem('cartProducts', JSON.stringify(updateProductsCart))
     data.setCartProducts(updateProductsCart)
   }
-  const changeQuantity = (event, index) => {
+
+  const changeQuantity = (event, index) => { // изменение количества товаров в корзине
     data.cartProducts[index].quantity = +event.target.value
     data.setCartProducts(data.cartProducts)
     localStorage.setItem('cartProducts', JSON.stringify(data.cartProducts))
@@ -60,7 +67,6 @@ export default function Cart() {
     }, initialTotalPrice).toFixed(2)
   }
 
-  let initialTotalPrice = 0; // Чтобы суммировать значения, содержащиеся в массиве объектов, вы должны указать initialTotalPrice, чтобы каждый элемент смог пройти через callback
 
   return (
     <div className={styles.mainCartBlock}>

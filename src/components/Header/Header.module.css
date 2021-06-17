@@ -1,12 +1,27 @@
+header{
+    position: relative;
+}
 .nbaHead{
+    position: fixed;
+    top: 0;
+    width: 1200px;
     font-size: 13px;
     display: grid; 
     align-items: center;
     grid-template-columns: 2fr 10fr 1fr;
-    /* height: 45px; */
-    position: fixed;
     background-color: white;
     z-index: 2;
+}
+.nbaHead::before{
+    content: '';
+    position: absolute;
+    background-color: white;
+    width: 100vw;
+    height: 100%;
+    top: 0;
+    left: calc(50% - 50vw);
+    z-index: -1;
+    overflow: hidden;
 }
 .nbaHead img{
     height: 40px;
@@ -64,13 +79,13 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    /* margin-top: 45px; */
+    margin-top: 45px;
 }
 .grizzliesHead::before{
     content: '';
     position: absolute;
     background-color: #5D76A9;
-    max-width: 100vw;
+    width: 100vw;
     height: 100%;
     top: 0;
     left: calc(50% - 50vw);
