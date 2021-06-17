@@ -13,12 +13,13 @@ export default function CatalogBlock() {
       localStorage.setItem('cartProducts', JSON.stringify(updateCart))
       data.setCartProducts(updateCart)
     } else{
-      data.cartProducts[index].quantity++ // увеличение количества товара в корзине при повторном нажатии
+      const i = productsInCart.findIndex(item => item.title === CatalogData[index].title) // находим индекс повторяющегося элемента в корзине
+      data.cartProducts[i].quantity++ // увеличение количества товара в корзине при повторном нажатии
       data.setCartProducts(data.cartProducts)
       localStorage.setItem('cartProducts', JSON.stringify(data.cartProducts))
     }
   }
-
+  console.log(data.cartProducts);
   return (
     <div className={styles.catalogBlock}>
       {CatalogData.map((item, index) => (

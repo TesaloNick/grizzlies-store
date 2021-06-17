@@ -4,7 +4,7 @@ import CartData from '../../../context';
 
 export default function CatalogFilter() {
   const data = useContext(CartData)
-  const filters = [
+  const Filters = [
     {
       title: 'Shop For',
       filter: ['Kids', 'Men', 'Women', 'Baby']
@@ -36,21 +36,34 @@ export default function CatalogFilter() {
   ]
   return (
     <div>
-      {filters.map(item => (
+      {Filters.map(item => (
         <div>
           <h2>{item.title}</h2>
-          <div>
-            {item.filter.map(aim => (
-              <div>
-                <input type="radio" id="huey" name="drone" value="huey" checked>
-                <label for="huey"></label>
-              </div>
-            ))}
-          </div>
-
+          {item.filter.map(filter => (
+            <div>
+              <input type="radio" id={filter} />
+              <label for={filter}>{filter}</label>
+            </div>
+          ))}
         </div>
       ))}
-
     </div>
   )
+  // return (
+  //   <div>
+  //     {filters.map(item => (
+  //       <div>
+  //         <h2>{item.title}</h2>
+  //         <div>
+  //           {item.filter.map(aim => (
+  //             <div>
+  //               <input type="radio" id="huey" name="drone" value="huey" checked>
+  //               <label for="huey"></label>
+  //             </div>
+  //           ))}
+  //         </div>
+  //       </div>
+  //     ))}
+  //   </div>
+  // )
 }

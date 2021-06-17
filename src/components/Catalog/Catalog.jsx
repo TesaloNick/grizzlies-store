@@ -8,7 +8,7 @@ export default function Catalog() {
   const data = useContext(CartData)
 
   return (
-    <div>
+    <div className={styles.catalogContainer}>
       <CatalogFilter />
       <CatalogBlock />
     </div>
