@@ -26,14 +26,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Cart() {
   const data = useContext(CartData)
-  const inputEl = useRef(null);
-  console.log(data.quantity);
+  // const [quantity, setQuantity] = React.useState(data.cartProducts.map(item => item.quantity)) 
+  // const [price, setPrice] = React.useState(data.cartProducts.map(item => item.price)) 
+  const ref = useRef(data.cartProducts.reduce((a,b) =>  a.price*a.quantity + b.price*b.quantity))
   const classes = useStyles();
   const [state, setState] = React.useState({
     size: '',
     name: 'hai',
   });
-  console.log(data.quantity);
+  console.log(data.cartProducts);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -49,17 +50,17 @@ export default function Cart() {
     data.setCartProducts(updateProductsCart)
   }
   const changeQuantity = (event, index) => {
-    // console.log(index, 1, +event.target.value);
-    data.quantity[index] = +event.target.value
-    // const a = quantity.splice(index, 1, +event.target.value)
-    console.log(data.quantity);
-    data.setQuantity(data.quantity)
+    data.cartProducts[index].quantity = +event.target.value
+    data.setCartProducts(data.cartProducts)
+    localStorage.setItem('cartProducts', JSON.stringify(data.cartProducts))
+    console.log(data.cartProducts);
+    console.dir(ref.current);
+    ref.current.innerHTML = data.cartProducts.reduce(function (a,b) {
+      return a + b.price*b.quantity
+    }, initialTotalPrice).toFixed(2)
   }
-  const onButtonClick = () => {
-    // `current` указывает на смонтированный элемент `input`
-    console.log(inputEl.current.value++)
-  };
-  const sumOfMoney = data.cartProducts.map(item => item.price)
+
+  let initialTotalPrice = 0; // Чтобы суммировать значения, содержащиеся в массиве объектов, вы должны указать initialTotalPrice, чтобы каждый элемент смог пройти через callback
 
   return (
     <div className={styles.mainCartBlock}>
@@ -74,7 +75,6 @@ export default function Cart() {
               <div className={styles.productInformationBlock}>
                 <p>{item.title}</p>
                 <div className={styles.productSelectorBlock}>
-                  <input type="number" value={inputEl}  ref={inputEl} onChange={() => onButtonClick()} />
                   <FormControl variant="outlined" className={classes.formControl}>
                     <InputLabel htmlFor="outlined-age-native-simple">Size</InputLabel>
                     <Select
@@ -92,22 +92,20 @@ export default function Cart() {
                   </FormControl>
                   <TextField
                     id="outlined-number"
-                    value={data.quantity[index]}
-                    // min='0'
+                    defaultValue={data.cartProducts[index].quantity}
+                    InputProps={{
+                      inputProps: { 
+                        min: 1 
+                      }
+                    }}
                     label="Quantity"
                     type="number"
-                    InputLabelProps={{shrink: true,}}
+                    InputLabelProps={{shrink: true, }}
                     variant="outlined"
-                    onChange={(event) => {
-                      // console.log(index, 1, +event.target.value);
-                      data.quantity[index] = +event.target.value
-                      // const a = quantity.splice(index, 1, +event.target.value)
-                      console.log(data.quantity);
-                      data.setQuantity(data.quantity)
-                    }}
+                    onChange={(event) => changeQuantity(event, index)} 
                   />
                 </div>
-
+ 
               </div>
               <div className={styles.productPriceBlock}>
                 <p>US$ <span>{item.price.toFixed(2)}</span></p>
@@ -121,10 +119,12 @@ export default function Cart() {
         <div className={styles.totalPriceBlock}>
           <p>Cart Total</p>
           <p>US$
-            <span>
+            <span ref={ref} >
               {localStorage.getItem('cartProducts') ? 
                 (JSON.parse(localStorage.getItem('cartProducts')).length > 0 ?
-                  sumOfMoney.reduce((a,b) => a+b).toFixed(2) : 
+                data.cartProducts.reduce(function (a,b) {
+                  return a + b.price*b.quantity
+                }, initialTotalPrice).toFixed(2) : 
                   '0') : 
                 '0'
               }

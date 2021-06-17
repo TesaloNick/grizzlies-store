@@ -8,9 +8,12 @@ export default function Catalog() {
 
   const addToCart = (index) => {
     const productsInCart = data.cartProducts
-    const updateCart = [...productsInCart, CatalogData[index]]
-    localStorage.setItem('cartProducts', JSON.stringify(updateCart))
-    data.setCartProducts(updateCart)
+    if (!productsInCart.map(item => item.title).includes(CatalogData[index].title)) { // проверка на наличие в корзине
+      const updateCart = [...productsInCart, CatalogData[index]]
+      localStorage.setItem('cartProducts', JSON.stringify(updateCart))
+      data.setCartProducts(updateCart)
+    }
+
   }
   console.log(data.cartProducts);
   return (

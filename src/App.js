@@ -12,11 +12,11 @@ import CartData from './context';
 function App() {
   const [cartProducts, setCartProducts] = useState(JSON.parse(localStorage.getItem('cartProducts')) || [])
   // const product = JSON.parse(localStorage.getItem('cartProducts')) || []
-  const [quantity, setQuantity] = React.useState(cartProducts.map(item => item.quantity))
+
   return (
     <div className="App">
       <BrowserRouter>
-        <CartData.Provider value={{cartProducts, setCartProducts, quantity, setQuantity}}>
+        <CartData.Provider value={{cartProducts, setCartProducts}}>
           <Header />
             <Switch>
               <Route exact path='/'> {/* Route для главной страницы содержит prop exact, благодаря которому пути сравниваются строго*/}
