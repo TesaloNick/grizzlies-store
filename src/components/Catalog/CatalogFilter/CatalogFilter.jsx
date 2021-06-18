@@ -7,63 +7,47 @@ export default function CatalogFilter() {
   const Filters = [
     {
       title: 'Shop For',
-      filter: ['Kids', 'Men', 'Women', 'Baby']
+      filter: ['Kids', 'Men', 'Women', 'Baby'],
     },
     {
       title: 'Featured Departments',
-      filter: ['Face Coverings', 'Headwear', 'Hoodies & Sweatshirts', 'Jerseys', 'T-Shirts']
+      filter: ['Face Coverings', 'Headwear', 'Hoodies & Sweatshirts', 'Jerseys', 'T-Shirts'],
     },
     {
       title: 'Trending',
-      filter: ['NBA On Court Gear']
+      filter: ['NBA On Court Gear'],
     },
     {
       title: 'Department',
-      filter: ['Accessories', 'Face Coverings', 'Footwear', 'Headwear', 'Home & Office', 'Hoodies & Sweatshirts', 'Jackets', 'Jerseys', 'T-Shirts', 'Tailgating']
+      filter: ['Accessories', 'Face Coverings', 'Footwear', 'Headwear', 'Home & Office', 'Hoodies & Sweatshirts', 'Jackets', 'Jerseys', 'T-Shirts', 'Tailgating'],
     },
     {
       title: 'Featured Brands',
-      filter: ['Fanatics Branded', 'Jordan Brand', 'New Era', 'Nike']
+      filter: ['Fanatics Branded', 'Jordan Brand', 'New Era', 'Nike'],
     },
     {
       title: 'Personalised Products',
-      filter: ['Personalised']
+      filter: ['Personalised'],
     },
     {
       title: 'Players',
-      filter: ['Ja Morant', 'Jonas Valanciunas', 'Yuta Watanabe', 'Andre Iguodala']
+      filter: ['Ja Morant', 'Jonas Valanciunas', 'Yuta Watanabe', 'Andre Iguodala'],
     },
   ]
   return (
-    <div>
+    <div className={styles.filterContainer}>
       {Filters.map(item => (
-        <div>
+        <div className={styles.filterSeparateContainer}>
           <h2>{item.title}</h2>
           {item.filter.map(filter => (
-            <div>
-              <input type="radio" id={filter} />
-              <label for={filter}>{filter}</label>
+            <div className={styles.filterSeparate}>
+              <input type="radio" id={filter} name={item.title} value={filter} className={styles.filterButton} />
+              <label for={filter} className={styles.filterLabel}>{filter}</label>
             </div>
           ))}
         </div>
       ))}
     </div>
   )
-  // return (
-  //   <div>
-  //     {filters.map(item => (
-  //       <div>
-  //         <h2>{item.title}</h2>
-  //         <div>
-  //           {item.filter.map(aim => (
-  //             <div>
-  //               <input type="radio" id="huey" name="drone" value="huey" checked>
-  //               <label for="huey"></label>
-  //             </div>
-  //           ))}
-  //         </div>
-  //       </div>
-  //     ))}
-  //   </div>
-  // )
+
 }
