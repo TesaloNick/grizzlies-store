@@ -11,14 +11,25 @@ export default function Nav() {
         <NavLink to='/men'>
           <li>MEN</li>
         </NavLink>
-        <li>WOMEN</li>
-        <li>KIDS</li>
-        <li>JERSEY</li>
+        <NavLink to='/women'>
+         <li>WOMEN</li>
+        </NavLink>
+        <NavLink to='/kids'>
+         <li>KIDS</li>
+        </NavLink>
+        <NavLink to='/jersey'>
+          <li>JERSEY</li>
+        </NavLink>
+        <NavLink to='/t-shirts'>
         <li>T-SHIRTS</li>
-        <li>KIDS</li>
-        <li>FOOTWEAR</li>
-        <li>ACCESORIES</li>
-        <li>SALE</li>
+        </NavLink>
+        <NavLink to='/footwear'>
+          <li>FOOTWEAR</li>
+        </NavLink>
+        <NavLink to='/accesories'>
+         <li>ACCESORIES</li>
+        </NavLink>
+
       </ul>
     </nav>
   );

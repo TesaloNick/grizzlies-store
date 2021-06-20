@@ -4,13 +4,14 @@ header{
 .nbaHead{
     position: fixed;
     top: 0;
-    width: 1200px;
+    max-width: 1200px;
     font-size: 13px;
     display: grid; 
     align-items: center;
     grid-template-columns: 2fr 10fr 1fr;
     background-color: white;
     z-index: 2;
+    width: 100%;
 }
 .nbaHead::before{
     content: '';
@@ -21,7 +22,7 @@ header{
     top: 0;
     left: calc(50% - 50vw);
     z-index: -1;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 .nbaHead img{
     height: 40px;
@@ -73,13 +74,16 @@ header{
 .cartImg{
     padding: 5px;
 }
+
 .grizzliesHead{
     position: relative;
     display: flex;
+    max-width: 1200px;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
     margin-top: 45px;
+    width: 100%;
 }
 .grizzliesHead::before{
     content: '';
@@ -90,7 +94,7 @@ header{
     top: 0;
     left: calc(50% - 50vw);
     z-index: -1;
-    overflow: hidden;
+    /* overflow: inherit; */
 }
 
 .logoImg{

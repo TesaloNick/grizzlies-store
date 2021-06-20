@@ -40,7 +40,7 @@ export default function Cart() {
     size: '',
     name: 'hai',
   });
-  console.log(data.cartProducts);
+  // console.log(data.cartProducts);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -51,17 +51,19 @@ export default function Cart() {
   };
 
   const deleteFromCart = (index) => {
+    data.cartProducts[index].quantity = 1
     const updateProductsCart = data.cartProducts.filter((item, idx) => index !== idx)
-    localStorage.setItem('cartProducts', JSON.stringify(updateProductsCart))
     data.setCartProducts(updateProductsCart)
+    localStorage.setItem('cartProducts', JSON.stringify(updateProductsCart))
   }
+  console.log(data.cartProducts);
 
   const changeQuantity = (event, index) => { // изменение количества товаров в корзине
     data.cartProducts[index].quantity = +event.target.value
     data.setCartProducts(data.cartProducts)
     localStorage.setItem('cartProducts', JSON.stringify(data.cartProducts))
-    console.log(data.cartProducts);
-    console.dir(ref.current);
+    console.log('3');
+    // console.log(data.cartProducts);
     ref.current.innerHTML = data.cartProducts.reduce(function (a,b) {
       return a + b.price*b.quantity
     }, initialTotalPrice).toFixed(2)
@@ -98,7 +100,7 @@ export default function Cart() {
                   </FormControl>
                   <TextField
                     id="outlined-number"
-                    defaultValue={data.cartProducts[index].quantity}
+                    defaultValue={item.quantity}
                     InputProps={{
                       inputProps: { 
                         min: 1 
