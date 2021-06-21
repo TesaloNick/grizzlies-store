@@ -6,7 +6,7 @@ import styles from './Catalog.module.css'
 
 export default function Catalog(props) {
   const data = useContext(CartData)
-  console.log(props.catalog);
+  // console.log(props.catalog);
   return (
     <div className={styles.catalogContainer}>
       <CatalogFilter />

@@ -12,18 +12,18 @@ export default function CatalogBlock(props) {
       const updateCart = [...productsInCart, CatalogData[index]]
       localStorage.setItem('cartProducts', JSON.stringify(updateCart))
       data.setCartProducts(updateCart)
-      console.log('1');
+      // console.log('1');
     } else{
       const i = productsInCart.findIndex(item => item.title === CatalogData[index].title) // находим индекс повторяющегося элемента в корзине
       data.cartProducts[i].quantity++ // увеличение количества товара в корзине при повторном нажатии
       data.setCartProducts(data.cartProducts)
       localStorage.setItem('cartProducts', JSON.stringify(data.cartProducts))
-      console.log('2');
+      // console.log('2');
     }
-    console.log(data);
+    // console.log(data);
   }
   // console.log(catalog.catalog.catalog);
-  console.log(CatalogData.filter(item => item.shopFor.includes('Men')));
+  // console.log(CatalogData.filter(item => item.shopFor.includes('Men')));
   return (
     <div className={styles.catalogBlock}>
       {props.catalog.map((item, index) => (

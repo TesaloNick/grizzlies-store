@@ -6,6 +6,9 @@
     grid-auto-flow: column;
     font-family: 'Open Sans'
 }
+nav a{
+    text-decoration: none;
+}
 .nav::before{
     content: '';
     position: absolute;

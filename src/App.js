@@ -65,6 +65,9 @@ function App() {
               <Route path='/accesories'>
                 <Catalog catalog={CatalogData.filter(item => item.department.includes('Accessories'))} />
               </Route>
+              <Route path='/filter'>
+                <Catalog catalog={CatalogData.filter(item => item.department.includes('Accessories'))} />
+              </Route>
             </Switch>
           <Footer />
         </CartData.Provider>

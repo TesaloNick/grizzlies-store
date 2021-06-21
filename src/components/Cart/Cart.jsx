@@ -1,4 +1,4 @@
-import React, {useContext, useRef} from 'react';
+import React, {useContext, useRef, useEffect} from 'react';
 import styles from './Cart.module.css'
 import close from './../../assets/img/Cart/close.svg'
 import { makeStyles } from '@material-ui/core/styles';
@@ -50,25 +50,29 @@ export default function Cart() {
     });
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const deleteFromCart = (index) => {
     data.cartProducts[index].quantity = 1
     const updateProductsCart = data.cartProducts.filter((item, idx) => index !== idx)
     data.setCartProducts(updateProductsCart)
     localStorage.setItem('cartProducts', JSON.stringify(updateProductsCart))
   }
-  console.log(data.cartProducts);
+  // console.log(data.cartProducts);
 
   const changeQuantity = (event, index) => { // изменение количества товаров в корзине
     data.cartProducts[index].quantity = +event.target.value
     data.setCartProducts(data.cartProducts)
     localStorage.setItem('cartProducts', JSON.stringify(data.cartProducts))
-    console.log('3');
+    // console.log('3');
     // console.log(data.cartProducts);
     ref.current.innerHTML = data.cartProducts.reduce(function (a,b) {
       return a + b.price*b.quantity
     }, initialTotalPrice).toFixed(2)
   }
-
+  // useEffect(() => {
+  //   data.setCartProducts(data.cartProducts)
+  //   console.log('22');
+  // }, [deleteFromCart])
 
   return (
     <div className={styles.mainCartBlock}>
