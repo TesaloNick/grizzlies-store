@@ -43,9 +43,9 @@ export default function CatalogFilter() {
   }
   useEffect(() => {
     setValue1(value1)
-    console.log('1');
+    // console.log('1');
   }, [value1])
-  console.log(value1);
+  // console.log(value1);
   return (
     <div className={styles.filterContainer}>
       {Filters.map(item => (

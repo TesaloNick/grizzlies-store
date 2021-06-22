@@ -12,24 +12,14 @@ import CatalogData from './components/Catalog/CatalogData'
 
 function App() {
   const [cartProducts, setCartProducts] = useState(JSON.parse(localStorage.getItem('cartProducts')) || [])
+  const [users, setUsers] = React.useState(JSON.parse(localStorage.getItem('usersData')) || [])
+  const [loginState, setLoginState] = useState(JSON.parse(localStorage.getItem('loginState')) || false)
 
-  function todoReducer (state = CatalogData, action) {
-    switch (action.type) {
-        case 'men':
-          return state.filter(item => item.shopFor.includes('Men'))
-        case 'woman':
-          return state.filter(item => item.shopFor.includes('Women'))
-        case 'kids':
-          return state.filter(item => item.shopFor.includes('Kid'))
-        default:
-          return state
-    }
-  }
-  const [state, dispatch] = React.useReducer(todoReducer, CatalogData)
+
   return (
     <div className="App">
       <BrowserRouter>
-        <CartData.Provider value={{cartProducts, setCartProducts}}>
+        <CartData.Provider value={{cartProducts, setCartProducts, users, setUsers, loginState, setLoginState}}>
           <Header />
             <Switch>
               <Route exact path='/'> {/* Route для главной страницы содержит prop exact, благодаря которому пути сравниваются строго*/}

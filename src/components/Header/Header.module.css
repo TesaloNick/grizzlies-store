@@ -38,6 +38,7 @@ header{
 .registerButtons li{
     padding: 0 10px;
     color: #242424;
+    cursor: pointer;
 }
 .registerButtons li:hover{
     text-decoration: underline;
