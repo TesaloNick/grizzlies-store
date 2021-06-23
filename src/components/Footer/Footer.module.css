@@ -6,7 +6,7 @@
     max-width: 100vw;
     /* overflow: hidden; */
 }
-.footerGrey::before{
+/* .footerGrey::before{
     content: '';
     position: absolute;
     background-color: #f4f5f5;
@@ -15,7 +15,7 @@
     top: 0;
     left: calc(50% - 50vw);
     z-index: -1;
-}
+} */
 .footerListLinksGrey{
     list-style-type: none;
 }

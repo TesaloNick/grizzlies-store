@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Cart() {
   const data = useContext(CartData)
-  const totalPriceref = useRef(localStorage.getItem('cartProducts') ?  // значение общей суммы товаров в корзине
+  const totalPriceRef = useRef(localStorage.getItem('cartProducts') ?  // значение общей суммы товаров в корзине
     (JSON.parse(localStorage.getItem('cartProducts')).length > 0 ?
     data.cartProducts.reduce(function (a,b) {
       return a + b.price*b.quantity
@@ -60,15 +60,12 @@ export default function Cart() {
     const cartProducts = data.cartProducts.map((item, idx) => idx === index ? {...item, quantity: +event.target.value} : item)
     data.setCartProducts(cartProducts)
     localStorage.setItem('cartProducts', JSON.stringify(data.cartProducts))
-    totalPriceref.current.innerHTML = data.cartProducts.reduce(function (a,b) {
+    totalPriceRef.current.innerHTML = data.cartProducts.reduce(function (a,b) {
       return a + b.price*b.quantity
     }, 0).toFixed(2)
   }
 
-  // useEffect(() => {
-  //   data.setCartProducts(data.cartProducts)
-  //   console.log('22');
-  // }, [deleteFromCart])
+
 
   return (
     <div className={styles.mainCartBlock}>
@@ -127,7 +124,7 @@ export default function Cart() {
         <div className={styles.totalPriceBlock}>
           <p>Cart Total</p>
           <p>US$
-            <span ref={totalPriceref} >
+            <span ref={totalPriceRef} >
               {localStorage.getItem('cartProducts') ? 
                 (JSON.parse(localStorage.getItem('cartProducts')).length > 0 ?
                 data.cartProducts.reduce(function (a,b) {

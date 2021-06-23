@@ -22,7 +22,6 @@ header{
     top: 0;
     left: calc(50% - 50vw);
     z-index: -1;
-    /* overflow: hidden; */
 }
 .nbaHead img{
     height: 40px;
@@ -79,7 +78,7 @@ header{
 .grizzliesHead{
     position: relative;
     display: flex;
-    max-width: 1200px;
+    /* max-width: 1200px; */
     /* justify-content: space-between; */
     align-items: center;
     padding: 10px 20px;
@@ -95,7 +94,6 @@ header{
     top: 0;
     left: calc(50% - 50vw);
     z-index: -1;
-    /* overflow: inherit; */
 }
 .searchBlock{
     position: relative;

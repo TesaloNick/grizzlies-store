@@ -7,6 +7,7 @@ import Footer from './components/Footer/Footer'
 import Cart from './components/Cart/Cart'
 import LogIn from './components/Registration/LogIn'
 import SignUp from './components/Registration/SignUp'
+import ProductPreview from './components/Catalog/CatalogBlock/ProductPreview/ProductPreview'
 import CartData from './context';
 import CatalogData from './components/Catalog/CatalogData'
 
@@ -14,7 +15,8 @@ function App() {
   const [cartProducts, setCartProducts] = useState(JSON.parse(localStorage.getItem('cartProducts')) || [])
   const [users, setUsers] = React.useState(JSON.parse(localStorage.getItem('usersData')) || [])
   const [loginState, setLoginState] = useState(JSON.parse(localStorage.getItem('loginState')) || false)
-  const [catalogData, setCatalogData] = useState(CatalogData)
+  if (!localStorage.getItem('catalogData')) localStorage.setItem('catalogData', JSON.stringify(CatalogData))
+  const [catalogData, setCatalogData] = useState(JSON.parse(localStorage.getItem('catalogData')))
 
 
   return (
@@ -25,6 +27,7 @@ function App() {
             <Switch>
               <Route exact path='/'> {/* Route для главной страницы содержит prop exact, благодаря которому пути сравниваются строго*/}
                 <Catalog catalog={catalogData} />
+                
               </Route>
               <Route path='/sign-up'>
                 <SignUp />
@@ -58,6 +61,9 @@ function App() {
               </Route>
               <Route path='/filter'>
                 <Catalog catalog={catalogData.filter(item => item.department.includes('Accessories'))} />
+              </Route>
+              <Route path='/product/:id'>
+                {({match}) => <ProductPreview match={match} />}
               </Route>
             </Switch>
           <Footer />

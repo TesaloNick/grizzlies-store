@@ -65,9 +65,7 @@ import MemphisGrizzliesJordanStatementSwingmanJerseyYutaWatanabe1 from './../../
 import MemphisGrizzliesJordanStatementSwingmanJerseyYutaWatanabe2 from './../../assets/img/Catalog/memphis-grizzlies-jordan-statement-swingman-jersey-yuta-watanabe-youth_ss4_p-12050281+pv-1+u-17fq1c9a84o9fut5cccl+v-9e47d52fdd7247a9a527e9a7516921d3.webp'
 import MemphisGrizzliesJordanStatementSwingmanJerseyYutaWatanabe3 from './../../assets/img/Catalog/memphis-grizzlies-jordan-statement-swingman-jersey-yuta-watanabe-youth_ss4_p-12050281+pv-2+u-17fq1c9a84o9fut5cccl+v-a71a8ebfa07c40cf952c4482925e37ac.webp'
 
-
-// eslint-disable-next-line import/no-anonymous-default-export
-export default  [
+const CatalogData = [
     { id: uuid(), 
       img: [
         MemphisGrizzliesFanaticsBrandedIconicSplatterGraphicTShirt1, MemphisGrizzliesFanaticsBrandedIconicSplatterGraphicTShirt2, MemphisGrizzliesFanaticsBrandedIconicSplatterGraphicTShirt3 
@@ -666,4 +664,5 @@ export default  [
 
   ]
 
-  
+
+export default CatalogData 
