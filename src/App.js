@@ -14,16 +14,17 @@ function App() {
   const [cartProducts, setCartProducts] = useState(JSON.parse(localStorage.getItem('cartProducts')) || [])
   const [users, setUsers] = React.useState(JSON.parse(localStorage.getItem('usersData')) || [])
   const [loginState, setLoginState] = useState(JSON.parse(localStorage.getItem('loginState')) || false)
+  const [catalogData, setCatalogData] = useState(CatalogData)
 
 
   return (
     <div className="App">
       <BrowserRouter>
-        <CartData.Provider value={{cartProducts, setCartProducts, users, setUsers, loginState, setLoginState}}>
+        <CartData.Provider value={{cartProducts, setCartProducts, users, setUsers, loginState, setLoginState, catalogData, setCatalogData}}>
           <Header />
             <Switch>
               <Route exact path='/'> {/* Route для главной страницы содержит prop exact, благодаря которому пути сравниваются строго*/}
-                <Catalog catalog={CatalogData} />
+                <Catalog catalog={catalogData} />
               </Route>
               <Route path='/sign-up'>
                 <SignUp />
@@ -35,28 +36,28 @@ function App() {
                 <Cart />
               </Route>
               <Route path='/men'>
-                <Catalog catalog={CatalogData.filter(item => item.shopFor.includes('Men'))} />
+                <Catalog catalog={catalogData.filter(item => item.shopFor.includes('Men'))} />
               </Route>
               <Route path='/women'>
-                <Catalog catalog={CatalogData.filter(item => item.shopFor.includes('Women'))} />
+                <Catalog catalog={catalogData.filter(item => item.shopFor.includes('Women'))} />
               </Route>
               <Route path='/kids'>
-                <Catalog catalog={CatalogData.filter(item => item.shopFor.includes('Kid'))} />
+                <Catalog catalog={catalogData.filter(item => item.shopFor.includes('Kid'))} />
               </Route>
               <Route path='/jersey'>
-                <Catalog catalog={CatalogData.filter(item => item.department.includes('Jerseys'))} />
+                <Catalog catalog={catalogData.filter(item => item.department.includes('Jerseys'))} />
               </Route>
               <Route path='/t-shirts'>
-                <Catalog catalog={CatalogData.filter(item => item.department.includes('T-Shirts'))} />
+                <Catalog catalog={catalogData.filter(item => item.department.includes('T-Shirts'))} />
               </Route>
               <Route path='/footwear'>
-                <Catalog catalog={CatalogData.filter(item => item.department.includes('Footwear'))} />
+                <Catalog catalog={catalogData.filter(item => item.department.includes('Footwear'))} />
               </Route>
               <Route path='/accesories'>
-                <Catalog catalog={CatalogData.filter(item => item.department.includes('Accessories'))} />
+                <Catalog catalog={catalogData.filter(item => item.department.includes('Accessories'))} />
               </Route>
               <Route path='/filter'>
-                <Catalog catalog={CatalogData.filter(item => item.department.includes('Accessories'))} />
+                <Catalog catalog={catalogData.filter(item => item.department.includes('Accessories'))} />
               </Route>
             </Switch>
           <Footer />

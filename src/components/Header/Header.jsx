@@ -2,10 +2,12 @@ import React, {useContext, useEffect} from 'react';
 import styles from './Header.module.css'
 import logoImg from './../../assets/img/Header/logo.svg'
 import nbaLogo from './../../assets/img/Header/nbalogo.svg'
+import search from './../../assets/img/Header/search.svg'
 import cartImg from './../../assets/img/Header/cart.png'
 import Nav from './Nav/Nav'
 import {NavLink} from 'react-router-dom'
 import CartData from './../../context';
+import CatalogData from './../Catalog/CatalogData'
 
 export default function Header() {
   const data = useContext(CartData)
@@ -18,6 +20,15 @@ export default function Header() {
     localStorage.setItem('loginState', JSON.stringify(data.loginState))
   }, [exitFromAccount])
   
+  const search = (event) => {
+    const searchText = event.target.value;
+    if (!searchText) {
+      data.setCatalogData(CatalogData)
+      return
+    }
+    data.setCatalogData(CatalogData.filter(item => item.title.toLowerCase().includes(searchText.toLowerCase())))
+  }
+
   return (
     <header>
       <div className={styles.nbaHead}>
@@ -51,6 +62,10 @@ export default function Header() {
         <NavLink to='/'>
           <img src={logoImg} alt="logo" className={styles.logoImg} />
         </NavLink>
+        <div className={styles.searchBlock}>
+          <input type="text"  className={styles.searchInput} placeholder='Search' onChange={search} />
+          <div className={styles.searchLogo}></div>
+        </div>
       </div>
       <Nav />
     </header>

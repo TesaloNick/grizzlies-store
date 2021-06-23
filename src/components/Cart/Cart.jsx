@@ -26,12 +26,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Cart() {
   const data = useContext(CartData)
-  let initialTotalPrice = 0; // Чтобы суммировать значения, содержащиеся в массиве объектов, вы должны указать initialTotalPrice, чтобы каждый элемент смог пройти через callback
-  const ref = useRef(localStorage.getItem('cartProducts') ?  // значение общей суммы товаров в корзине
+  const totalPriceref = useRef(localStorage.getItem('cartProducts') ?  // значение общей суммы товаров в корзине
     (JSON.parse(localStorage.getItem('cartProducts')).length > 0 ?
     data.cartProducts.reduce(function (a,b) {
       return a + b.price*b.quantity
-    }, initialTotalPrice).toFixed(2) : 
+    }, 0).toFixed(2) : 
       '0') : 
     '0'
   )
@@ -40,7 +39,6 @@ export default function Cart() {
     size: '',
     name: 'hai',
   });
-  // console.log(data.cartProducts);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -50,7 +48,6 @@ export default function Cart() {
     });
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const deleteFromCart = (index) => {
     data.cartProducts[index].quantity = 1
     const updateProductsCart = data.cartProducts.filter((item, idx) => index !== idx)
@@ -60,15 +57,14 @@ export default function Cart() {
   // console.log(data.cartProducts);
 
   const changeQuantity = (event, index) => { // изменение количества товаров в корзине
-    data.cartProducts[index].quantity = +event.target.value
-    data.setCartProducts(data.cartProducts)
+    const cartProducts = data.cartProducts.map((item, idx) => idx === index ? {...item, quantity: +event.target.value} : item)
+    data.setCartProducts(cartProducts)
     localStorage.setItem('cartProducts', JSON.stringify(data.cartProducts))
-    // console.log('3');
-    // console.log(data.cartProducts);
-    ref.current.innerHTML = data.cartProducts.reduce(function (a,b) {
+    totalPriceref.current.innerHTML = data.cartProducts.reduce(function (a,b) {
       return a + b.price*b.quantity
-    }, initialTotalPrice).toFixed(2)
+    }, 0).toFixed(2)
   }
+
   // useEffect(() => {
   //   data.setCartProducts(data.cartProducts)
   //   console.log('22');
@@ -104,7 +100,7 @@ export default function Cart() {
                   </FormControl>
                   <TextField
                     id="outlined-number"
-                    defaultValue={item.quantity}
+                    value={item.quantity}
                     InputProps={{
                       inputProps: { 
                         min: 1 
@@ -131,12 +127,12 @@ export default function Cart() {
         <div className={styles.totalPriceBlock}>
           <p>Cart Total</p>
           <p>US$
-            <span ref={ref} >
+            <span ref={totalPriceref} >
               {localStorage.getItem('cartProducts') ? 
                 (JSON.parse(localStorage.getItem('cartProducts')).length > 0 ?
                 data.cartProducts.reduce(function (a,b) {
                   return a + b.price*b.quantity
-                }, initialTotalPrice).toFixed(2) : 
+                }, 0).toFixed(2) : 
                   '0') : 
                 '0'
               }

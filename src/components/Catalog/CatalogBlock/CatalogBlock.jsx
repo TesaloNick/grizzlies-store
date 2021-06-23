@@ -8,13 +8,13 @@ export default function CatalogBlock(props) {
 
   const addToCart = (index) => {
     const productsInCart = data.cartProducts
-    if (!productsInCart.map(item => item.title).includes(CatalogData[index].title)) { // проверка на наличие в корзине
-      const updateCart = [...productsInCart, CatalogData[index]]
+    if (!productsInCart.map(item => item.title).includes(data.catalogData[index].title)) { // проверка на наличие в корзине
+      const updateCart = [...productsInCart, data.catalogData[index]]
       localStorage.setItem('cartProducts', JSON.stringify(updateCart))
       data.setCartProducts(updateCart)
       // console.log('1');
     } else{
-      const i = productsInCart.findIndex(item => item.title === CatalogData[index].title) // находим индекс повторяющегося элемента в корзине
+      const i = productsInCart.findIndex(item => item.title === data.catalogData[index].title) // находим индекс повторяющегося элемента в корзине
       data.cartProducts[i].quantity++ // увеличение количества товара в корзине при повторном нажатии
       data.setCartProducts(data.cartProducts)
       localStorage.setItem('cartProducts', JSON.stringify(data.cartProducts))
