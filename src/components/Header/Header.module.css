@@ -54,6 +54,10 @@ header{
     background-color: #e61a4d;
     width: 60px;
 }
+.cart:hover{
+    background-color: #d11846;
+    transition: .5s;
+} 
 .cart span{
     position: absolute;
     content: '';

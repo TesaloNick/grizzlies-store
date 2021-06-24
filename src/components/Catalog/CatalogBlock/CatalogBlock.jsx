@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useRef} from 'react';
 import styles from './CatalogBlock.module.css'
 import CatalogData from '../CatalogData.jsx'
 import { NavLink } from 'react-router-dom'
@@ -6,26 +6,31 @@ import CartData from '../../../context';
 
 export default function CatalogBlock(props) {
   const data = useContext(CartData)
-  const [isModal, setIsModal] = useState(false)
   const [modalProduct, setModalProduct] = useState({})
+  const [isModal, setIsModal] = useState(false)
+  // const [isSelectSize, setIsSelectSize] = useState(array.fill(false))
+  const sizeRef = useRef()
+  // console.log(isSelectSize);
 
-  const addToCart = (index) => {
+  const addToCart = (event, product) => {
+    event.preventDefault()
     const productsInCart = data.cartProducts
-    if (!productsInCart.map(item => item.title).includes(data.catalogData[index].title)) { // проверка на наличие в корзине
-      const updateCart = [...productsInCart, data.catalogData[index]]
+    if (!productsInCart.map(item => item.title).includes(product.title)) { // проверка на наличие в корзине
+      const updateCart = [...productsInCart, product]
       localStorage.setItem('cartProducts', JSON.stringify(updateCart))
       data.setCartProducts(updateCart)
     } else{
-      const i = productsInCart.findIndex(item => item.title === data.catalogData[index].title) // находим индекс повторяющегося элемента в корзине
-      data.cartProducts[i].quantity++ // увеличение количества товара в корзине при повторном нажатии
+      const i = productsInCart.findIndex(item => item.title === product.title) // находим индекс повторяющегося элемента в корзине
+      data.cartProducts[i].quantity = data.cartProducts[i].quantity + modalProduct.quantity // увеличение количества товара в корзине при повторном нажатии
       data.setCartProducts(data.cartProducts)
       localStorage.setItem('cartProducts', JSON.stringify(data.cartProducts))
     }
   }
 
-  const openModalWindow = (index) => {
-    const productInModalWindow = data.catalogData[index]
-    setModalProduct(productInModalWindow)
+  const openModalWindow = (product) => {
+
+
+    setModalProduct(product)
     setIsModal(true)
   }
 
@@ -33,13 +38,24 @@ export default function CatalogBlock(props) {
     setIsModal(false)
   }
 
+  const changeQuantity = (event) => { // изменение количества товаров в корзине
+    const modalProduct1 = {...modalProduct, quantity: +event.target.value}
+    setModalProduct(modalProduct1)
+  }
+
+  const selectSize = (size, index) => {
+    const array = new Array(1) 
+    sizeRef.current.innerHTML = size
+    
+  }
+
   return (
     <div className={styles.catalogBlock}>
       {props.catalog.map((item, index) => (
         <div className={styles.product}>
-          <img src={item.img[0]}  className={styles.productImg} alt={item.title} onClick={() => openModalWindow(index)} />
-          <p className={styles.price}>US$<span onClick={() => addToCart(index)}>{item.price.toFixed(2)}</span></p>
-          <p className={styles.title} onClick={() => openModalWindow(index)}>{item.title}</p>
+          <img src={item.img[0]}  className={styles.productImg} alt={item.title} onClick={() => openModalWindow(item)} />
+          <p className={styles.price}>US$<span>{item.price.toFixed(2)}</span></p>
+          <p className={styles.title} onClick={() => openModalWindow(item)}>{item.title}</p>
         </div>
       ))}
       {isModal ? 
@@ -52,25 +68,28 @@ export default function CatalogBlock(props) {
               </div>
               <div>
                 <h3 className={styles.modalTitle}>{modalProduct.title}</h3>
-                <p>US$ {modalProduct.price}</p>
-                <div>
-                  <p>Size</p>
+                <p className={styles.modalTitle}>Your Price: US${modalProduct.price.toFixed(2)}</p>
+                <div className={styles.modalSelectBlock}>
+                  <div className={styles.modalSizeTitle}>
+                    <p>Size</p>
+                    <p ref={sizeRef}></p>
+                  </div>
                   <ul>
-                    {modalProduct.size.map(item => <li>{item}</li>)}
+                    {modalProduct.size.map((item, index) => <li className={styles.sizeOffClick} onClick={() => selectSize(item, index)}>{item}</li>)}
                   </ul>
                   <p>Quantity</p>
-                  <form>
-                    <input type="number" />
-                    <button>Add to Cart</button>
+                  <form className={styles.modalSelectQuantity}>
+                    <input type="number" min='1' value={modalProduct.quantity} onChange={(event) => changeQuantity(event)}  />
+                    <button onClick={(event) => addToCart(event, modalProduct)}>Add to Cart</button>
                   </form>
                 </div>
-                <div>
+                <div className={styles.modalInformationBlock}>
                   <h2>Details</h2>
                   <ul>
                     {modalProduct.details.map(item => <li>{item}</li>)}
                   </ul>
                 </div>
-                <div>
+                <div className={styles.modalInformationBlock}>
                   <h2>Description</h2>
                   <p>{modalProduct.description}</p>
                 </div>
