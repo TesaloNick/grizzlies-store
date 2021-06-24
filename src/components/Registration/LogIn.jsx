@@ -15,7 +15,9 @@ export default function LogIn() {
     const usersData = JSON.parse(localStorage.getItem('usersData'))
     console.log(usersData);
     if (data.users.length !== 0 && usersData.find(item => (item.email === event.target[0].value))){
-      if (usersData.find(item => (item.email === event.target[0].value) && (item.password === event.target[1].value))) {
+      const accountData = usersData.find(item => (item.email === event.target[0].value) && (item.password === event.target[1].value))
+      if (accountData) {
+        localStorage.setItem('accountData', JSON.stringify(accountData))
         data.setLoginState(true)
         event.target[0].value = event.target[1].value = ''
       } else {

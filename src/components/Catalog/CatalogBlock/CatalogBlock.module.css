@@ -28,6 +28,9 @@
     text-decoration: none;
     cursor: pointer;
 }
+.title:hover{
+    text-decoration: underline;
+}
 
 
 /*MODAL WINDOW*/ 
@@ -76,6 +79,11 @@
     font-weight: 600;
     font-size: 18px;
 }
+.modalPrice{
+    padding: 10px 0;
+    font-weight: 600;
+    font-size: 18px;
+}
 .close{ 
     position: absolute;
     width: 30px;
@@ -99,7 +107,7 @@
     display: grid;
     grid-auto-flow: column;
 }
-.modalSizeTitle > p{
+.modalSizeTitle > p, .modalSelectBlock > p{
     font-size: 16px;
     font-weight: 600;
 }
@@ -167,6 +175,8 @@
     padding: 0 10px;
     font-size: 18px;
     border-radius: 5px;
+    width: 100px;
+    justify-self: center;
 }
 .modalSelectQuantity button{
     height: 40px;

@@ -9,7 +9,7 @@
 nav a{
     text-decoration: none;
 }
-.nav::before{
+/* .nav::before{
     content: '';
     position: absolute;
     background-color: #12173F;
@@ -19,7 +19,7 @@ nav a{
     left: calc(50% - 50vw);
     z-index: -1;
     overflow-x: hidden;
-}
+} */
 .nav li{
     list-style-type: none;
     padding: 10px;

@@ -8,9 +8,8 @@ export default function CatalogBlock(props) {
   const data = useContext(CartData)
   const [modalProduct, setModalProduct] = useState({})
   const [isModal, setIsModal] = useState(false)
-  // const [isSelectSize, setIsSelectSize] = useState(array.fill(false))
   const sizeRef = useRef()
-  // console.log(isSelectSize);
+  const [isSelectSize, setIsSelectSize] = useState([])
 
   const addToCart = (event, product) => {
     event.preventDefault()
@@ -28,11 +27,12 @@ export default function CatalogBlock(props) {
   }
 
   const openModalWindow = (product) => {
-
-
     setModalProduct(product)
     setIsModal(true)
+    const arraySize = new Array(product.size.length)
+    setIsSelectSize(arraySize.fill(false)) 
   }
+  console.log(isSelectSize);
 
   const closeModalWindow = () => {
     setIsModal(false)
@@ -44,9 +44,9 @@ export default function CatalogBlock(props) {
   }
 
   const selectSize = (size, index) => {
-    const array = new Array(1) 
     sizeRef.current.innerHTML = size
-    
+    const arraySize = isSelectSize.map((item, idx) => index === idx ? true : false)
+    setIsSelectSize(arraySize)
   }
 
   return (
@@ -68,14 +68,14 @@ export default function CatalogBlock(props) {
               </div>
               <div>
                 <h3 className={styles.modalTitle}>{modalProduct.title}</h3>
-                <p className={styles.modalTitle}>Your Price: US${modalProduct.price.toFixed(2)}</p>
+                <p className={styles.modalPrice}>Your Price: US${modalProduct.price.toFixed(2)}</p>
                 <div className={styles.modalSelectBlock}>
                   <div className={styles.modalSizeTitle}>
                     <p>Size</p>
-                    <p ref={sizeRef}></p>
+                    <p ref={sizeRef}>1</p>
                   </div>
                   <ul>
-                    {modalProduct.size.map((item, index) => <li className={styles.sizeOffClick} onClick={() => selectSize(item, index)}>{item}</li>)}
+                    {modalProduct.size.map((item, index) => <li className={isSelectSize[index] ? styles.sizeOnClick : styles.sizeOffClick} onClick={() => selectSize(item, index)}>{item}</li>)}
                   </ul>
                   <p>Quantity</p>
                   <form className={styles.modalSelectQuantity}>

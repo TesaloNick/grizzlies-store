@@ -52,6 +52,8 @@
     margin: 30px;
     background-color: #f5f6f8;
     height: 100px;
+    position: sticky;
+    top: 50px;
 }
 .totalPriceBlock p{
     justify-self: center;

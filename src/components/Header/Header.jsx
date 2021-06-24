@@ -37,7 +37,7 @@ export default function Header() {
         </div>
         {data.loginState ?
           <ul className={styles.registerButtons}>
-            <NavLink to='/my-account'>
+            <NavLink to='/account'>
               <li>My account</li>
             </NavLink>
             <li onClick={() => exitFromAccount()}>Exit</li>

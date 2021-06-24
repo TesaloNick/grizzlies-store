@@ -54,7 +54,7 @@ export default function Footer() {
   const payment = [maestro, jcb, amex, paypal, visa, mastercard]
 
   return (
-    <footer>
+    <footer className={styles.footer}>
       <div className={styles.footerGrey}>
         {footerGreyLinks.map(item => (
           <div className={styles.footerLinksBlock}>

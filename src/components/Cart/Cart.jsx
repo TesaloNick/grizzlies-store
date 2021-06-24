@@ -34,18 +34,12 @@ export default function Cart() {
       '0') : 
     '0'
   )
+
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    size: '',
-    name: 'hai',
-  });
+  const [state, setState] = React.useState({size: ''});
 
   const handleChange = (event) => {
-    const name = event.target.name;
-    setState({
-      ...state,
-      [name]: event.target.value,
-    });
+    setState({size: event.target.value});
   };
 
   const deleteFromCart = (index) => {
@@ -54,7 +48,6 @@ export default function Cart() {
     data.setCartProducts(updateProductsCart)
     localStorage.setItem('cartProducts', JSON.stringify(updateProductsCart))
   }
-  // console.log(data.cartProducts);
 
   const changeQuantity = (event, index) => { // изменение количества товаров в корзине
     const cartProducts = data.cartProducts.map((item, idx) => idx === index ? {...item, quantity: +event.target.value} : item)
@@ -64,8 +57,6 @@ export default function Cart() {
       return a + b.price*b.quantity
     }, 0).toFixed(2)
   }
-
-
 
   return (
     <div className={styles.mainCartBlock}>

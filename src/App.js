@@ -7,7 +7,7 @@ import Footer from './components/Footer/Footer'
 import Cart from './components/Cart/Cart'
 import LogIn from './components/Registration/LogIn'
 import SignUp from './components/Registration/SignUp'
-import ProductPreview from './components/Catalog/CatalogBlock/ProductPreview/ProductPreview'
+import Account from './components/Account/Account'
 import CartData from './context';
 import CatalogData from './components/Catalog/CatalogData'
 
@@ -27,7 +27,6 @@ function App() {
             <Switch>
               <Route exact path='/'> {/* Route для главной страницы содержит prop exact, благодаря которому пути сравниваются строго*/}
                 <Catalog catalog={catalogData} />
-                
               </Route>
               <Route path='/sign-up'>
                 <SignUp />
@@ -62,9 +61,10 @@ function App() {
               <Route path='/filter'>
                 <Catalog catalog={catalogData.filter(item => item.department.includes('Accessories'))} />
               </Route>
-              <Route path='/product/:id'>
-                {({match}) => <ProductPreview match={match} />}
+              <Route path='/account'>
+                <Account />
               </Route>
+
             </Switch>
           <Footer />
         </CartData.Provider>
