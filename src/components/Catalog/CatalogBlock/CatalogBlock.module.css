@@ -114,7 +114,7 @@
 .modalSizeTitle > p:last-of-type{
     font-weight: 400;
 }
-.modalSelectBlock > ul{
+.modalSelectBlock ul{
     list-style-type: none;
     display: grid;
     grid-auto-flow: column;
@@ -158,7 +158,7 @@
     border: 1px solid #e61a4d;
 }
 
-.modalSelectBlock > p, .modalSelectBlock > ul, .modalInformationBlock h2, .modalInformationBlock ul{
+.modalSelectBlock p, .modalSelectBlock ul, .modalInformationBlock h2, .modalInformationBlock ul{
     margin: 10px 0;
 }
 .modalSelectBlock > p:first-of-type{

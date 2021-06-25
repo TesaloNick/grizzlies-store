@@ -8,63 +8,109 @@ export default function CatalogFilter() {
   const Filters = [
     {
       title: 'Shop For',
-      filter: ['Kids', 'Men', 'Women', 'Baby'],
+      filters: [
+        {name: 'Kids', isChecked: false}, 
+        {name: 'Men', isChecked: false}, 
+        {name: 'Women', isChecked: false}, 
+        {name: 'Baby', isChecked: false}
+      ],
     },
     {
       title: 'Featured Departments',
-      filter: ['Face Coverings', 'Headwear', 'Hoodies & Sweatshirts', 'Jerseys', 'T-Shirts'],
+      filters: [
+        {name: 'Face Coverings', isChecked: false}, 
+        {name: 'Headwear', isChecked: false}, 
+        {name: 'Hoodies & Sweatshirts', isChecked: false}, 
+        {name: 'Jerseys', isChecked: false},
+        {name: 'T-Shirts', isChecked: false}
+      ],
     },
     {
       title: 'Trending',
-      filter: ['NBA On Court Gear'],
+      filters: [
+        {name: 'NBA On Court Gear', isChecked: false}
+      ],
     },
     {
       title: 'Department',
-      filter: ['Accessories', 'Face Coverings', 'Footwear', 'Headwear', 'Home & Office', 'Hoodies & Sweatshirts', 'Jackets', 'Jerseys', 'T-Shirts', 'Tailgating'],
+      filters: [
+        {name: 'Accessories', isChecked: false}, 
+        {name: 'Face Coverings', isChecked: false}, 
+        {name: 'Footwear', isChecked: false}, 
+        {name: 'Headwear', isChecked: false},
+        {name: 'Home & Office', isChecked: false}, 
+        {name: 'Hoodies & Sweatshirts', isChecked: false}, 
+        {name: 'Jackets', isChecked: false}, 
+        {name: 'Jerseys', isChecked: false},
+        {name: 'T-Shirts', isChecked: false},
+        {name: 'Tailgating', isChecked: false},
+      ]
     },
     {
       title: 'Featured Brands',
-      filter: ['Fanatics Branded', 'Jordan Brand', 'New Era', 'Nike'],
+      filters: [
+        {name: 'Fanatics Branded', isChecked: false}, 
+        {name: 'Jordan Brand', isChecked: false}, 
+        {name: 'New Era', isChecked: false}, 
+        {name: 'Nike', isChecked: false}
+      ],
     },
     {
       title: 'Personalised Products',
-      filter: ['Personalised'],
+      filters: [
+        {name: 'Personalised', isChecked: false}, 
+      ],
     },
     {
       title: 'Players',
-      filter: ['Ja Morant', 'Jonas Valanciunas', 'Yuta Watanabe'],
+      filters: [
+        {name: 'Ja Morant', isChecked: false}, 
+        {name: 'Jonas Valanciunas', isChecked: false}, 
+        {name: 'Yuta Watanabe', isChecked: false}, 
+      ],
     },
   ]
-  const [value1, setValue1] = useState();
-  const changeHandler = (event) => {
-    event.preventDefault()
-    // console.log(event.target.value);
-    setValue1(event.target.value)
-  }
   useEffect(() => {
-    setValue1(value1)
-    // console.log('1');
-  }, [value1])
-  // console.log(value1);
+    localStorage.setItem('filters', JSON.stringify(Filters))
+  })
+
+  // localStorage.setItem('filters', JSON.stringify(Filters))
+
+  const changeHandler = (allFilters, filter) => {
+    const filterGroup = data.filters.find((item) => allFilters.title === item.title)
+    const filter1 = filterGroup.filters.map((item, idx) => filter.name === item.name ? {...item, isChecked: true} : {...item, isChecked: false})
+    const a = {...filterGroup, filters: filter1}
+    const filter2 = data.filters.map(item => a.title === item.title ? a : item)
+    console.log(filter2);
+    // map((item, idx) => allFilters.title === item.title && allFilters.filter.name === item.filter.name ? {...item, filter.isChecked: true} : item)
+    // setFilterName(filterRadio)
+    data.setFilters(filter2)
+    // localStorage.setItem('filters', JSON.stringify(data.filters))
+
+  }
+
+  useEffect(() => {
+    localStorage.setItem('filters', JSON.stringify(data.filters))
+
+  }, [changeHandler])
+
   return (
     <div className={styles.filterContainer}>
-      {Filters.map(item => (
+      {JSON.parse(localStorage.getItem('filters')).map(item => (
         <div className={styles.filterSeparateContainer}>
           <h2>{item.title}</h2>
-          {item.filter.map(filter => (
+          {item.filters.map(filter => (
             <NavLink to='/filter/' className={styles.filterSeparate}>
-              <div >
-                <input 
-                  type="radio" 
-                  id={filter}
-                  name={item.title} 
-                  value={filter} 
-                  className={styles.filterButton} 
-                  onChange={(event) => changeHandler(event)} 
-                  checked={value1 === filter ? true : false} 
-                />
-                <label for={filter} className={styles.filterLabel}>{filter}</label>
-              </div>
+              <input 
+                type="radio" 
+                id={filter.name}
+                name={item.title} 
+                value={filter.name} 
+                className={styles.filterButton} 
+                onChange={() => changeHandler(item, filter)} 
+                checked={filter.isChecked} 
+              />
+              <label for={filter.name} className={styles.filterLabel}>{filter.name}</label>
             </NavLink>
           ))}
         </div>

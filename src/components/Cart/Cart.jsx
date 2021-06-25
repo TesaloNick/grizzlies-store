@@ -71,6 +71,7 @@ export default function Cart() {
               <div className={styles.productInformationBlock}>
                 <p>{item.title}</p>
                 <div className={styles.productSelectorBlock}>
+                  {item.size.length > 0 ? 
                   <FormControl variant="outlined" className={classes.formControl}>
                     <InputLabel htmlFor="outlined-age-native-simple">Size</InputLabel>
                     <Select
@@ -85,7 +86,9 @@ export default function Cart() {
                     >
                       {item.size.map(size => <option value={size}>{size}</option>)}
                     </Select>
-                  </FormControl>
+                  </FormControl> :
+                  <p></p>
+                  }
                   <TextField
                     id="outlined-number"
                     value={item.quantity}

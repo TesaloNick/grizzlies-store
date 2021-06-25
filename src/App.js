@@ -17,12 +17,13 @@ function App() {
   const [loginState, setLoginState] = useState(JSON.parse(localStorage.getItem('loginState')) || false)
   if (!localStorage.getItem('catalogData')) localStorage.setItem('catalogData', JSON.stringify(CatalogData))
   const [catalogData, setCatalogData] = useState(JSON.parse(localStorage.getItem('catalogData')))
+  const [filters, setFilters] = useState(JSON.parse(localStorage.getItem('filters')) || [])
 
 
   return (
     <div className="App">
       <BrowserRouter>
-        <CartData.Provider value={{cartProducts, setCartProducts, users, setUsers, loginState, setLoginState, catalogData, setCatalogData}}>
+        <CartData.Provider value={{cartProducts, setCartProducts, users, setUsers, loginState, setLoginState, catalogData, setCatalogData, filters, setFilters}}>
           <Header />
             <Switch>
               <Route exact path='/'> {/* Route для главной страницы содержит prop exact, благодаря которому пути сравниваются строго*/}

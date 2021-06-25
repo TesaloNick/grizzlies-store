@@ -70,13 +70,17 @@ export default function CatalogBlock(props) {
                 <h3 className={styles.modalTitle}>{modalProduct.title}</h3>
                 <p className={styles.modalPrice}>Your Price: US${modalProduct.price.toFixed(2)}</p>
                 <div className={styles.modalSelectBlock}>
-                  <div className={styles.modalSizeTitle}>
-                    <p>Size</p>
-                    <p ref={sizeRef}>1</p>
-                  </div>
-                  <ul>
-                    {modalProduct.size.map((item, index) => <li className={isSelectSize[index] ? styles.sizeOnClick : styles.sizeOffClick} onClick={() => selectSize(item, index)}>{item}</li>)}
-                  </ul>
+                  {modalProduct.size.length ? 
+                  <div>
+                    <div className={styles.modalSizeTitle}>
+                      <p>Size</p>
+                      <p ref={sizeRef}></p>
+                    </div>
+                    <ul>
+                      {modalProduct.size.map((item, index) => <li className={isSelectSize[index] ? styles.sizeOnClick : styles.sizeOffClick} onClick={() => selectSize(item, index)}>{item}</li>)}
+                    </ul>
+                  </div> : 
+                  <p></p>}
                   <p>Quantity</p>
                   <form className={styles.modalSelectQuantity}>
                     <input type="number" min='1' value={modalProduct.quantity} onChange={(event) => changeQuantity(event)}  />
