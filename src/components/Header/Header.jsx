@@ -7,7 +7,7 @@ import cartImg from './../../assets/img/Header/cart.png'
 import Nav from './Nav/Nav'
 import {NavLink} from 'react-router-dom'
 import CartData from './../../context';
-import CatalogData from './../Catalog/CatalogData'
+import CatalogData from './../Catalog/CatalogBlock/CatalogData'
 
 export default function Header() {
   const data = useContext(CartData)

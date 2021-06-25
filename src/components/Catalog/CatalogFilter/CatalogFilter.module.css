@@ -2,6 +2,27 @@
     padding: 20px 10px;
     font-size: 18px;
 }
+.сlearFilters{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    width: 100%;
+    height: 40px;
+    border: 1px solid #5D76A9;
+    border-radius: 5px;
+    background-color: #5D76A9;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: inset 0 -2px 0 rgb(0 0 0 / 30%);
+    transition: .5s;
+}
+.сlearFilters:hover{
+    background-color: #495d85;
+    transition: .5s;
+}
 .filterSeparateContainer{
     padding: 20px 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.205);

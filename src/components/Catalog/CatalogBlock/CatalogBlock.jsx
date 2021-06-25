@@ -1,8 +1,8 @@
-import React, {useContext, useState, useRef} from 'react';
+import React, {useContext, useState, useRef, useEffect} from 'react';
 import styles from './CatalogBlock.module.css'
-import CatalogData from '../CatalogData.jsx'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import CartData from '../../../context';
+import CatalogData from './CatalogData'
 
 export default function CatalogBlock(props) {
   const data = useContext(CartData)
@@ -10,6 +10,7 @@ export default function CatalogBlock(props) {
   const [isModal, setIsModal] = useState(false)
   const sizeRef = useRef()
   const [isSelectSize, setIsSelectSize] = useState([])
+  const {push} = useHistory()
 
   const addToCart = (event, product) => {
     event.preventDefault()
@@ -32,7 +33,6 @@ export default function CatalogBlock(props) {
     const arraySize = new Array(product.size.length)
     setIsSelectSize(arraySize.fill(false)) 
   }
-  console.log(isSelectSize);
 
   const closeModalWindow = () => {
     setIsModal(false)
@@ -49,8 +49,13 @@ export default function CatalogBlock(props) {
     setIsSelectSize(arraySize)
   }
 
+  // useEffect(() => {
+  //   push('/')
+  // })
+
   return (
     <div className={styles.catalogBlock}>
+      {/* {props.catalog.map((item, index) => ( */}
       {props.catalog.map((item, index) => (
         <div className={styles.product}>
           <img src={item.img[0]}  className={styles.productImg} alt={item.title} onClick={() => openModalWindow(item)} />

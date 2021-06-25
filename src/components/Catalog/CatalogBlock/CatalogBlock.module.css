@@ -57,7 +57,7 @@
 }
 .modalBlock{
     position: relative;
-    padding: 30px;
+    padding: 40px 30px;
     background: white;
     display: grid;
     justify-items: center;

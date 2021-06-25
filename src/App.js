@@ -1,4 +1,4 @@
-import React, {useState, useReducer} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import {BrowserRouter, Switch, Route, NavLink} from 'react-router-dom'
 import Header from './components/Header/Header'
@@ -9,7 +9,8 @@ import LogIn from './components/Registration/LogIn'
 import SignUp from './components/Registration/SignUp'
 import Account from './components/Account/Account'
 import CartData from './context';
-import CatalogData from './components/Catalog/CatalogData'
+import CatalogData from './components/Catalog/CatalogBlock/CatalogData'
+import FiltersData from './components/Catalog/CatalogFilter/FiltersData'
 
 function App() {
   const [cartProducts, setCartProducts] = useState(JSON.parse(localStorage.getItem('cartProducts')) || [])
@@ -17,8 +18,13 @@ function App() {
   const [loginState, setLoginState] = useState(JSON.parse(localStorage.getItem('loginState')) || false)
   if (!localStorage.getItem('catalogData')) localStorage.setItem('catalogData', JSON.stringify(CatalogData))
   const [catalogData, setCatalogData] = useState(JSON.parse(localStorage.getItem('catalogData')))
+  if (!localStorage.getItem('filters')) localStorage.setItem('filters', JSON.stringify(FiltersData))
   const [filters, setFilters] = useState(JSON.parse(localStorage.getItem('filters')) || [])
 
+  useEffect(() => {
+    setFilters(FiltersData)
+    localStorage.setItem('filters', JSON.stringify(FiltersData))
+  }, [catalogData])
 
   return (
     <div className="App">
@@ -27,7 +33,7 @@ function App() {
           <Header />
             <Switch>
               <Route exact path='/'> {/* Route для главной страницы содержит prop exact, благодаря которому пути сравниваются строго*/}
-                <Catalog catalog={catalogData} />
+                <Catalog catalog={CatalogData} />
               </Route>
               <Route path='/sign-up'>
                 <SignUp />
@@ -45,7 +51,7 @@ function App() {
                 <Catalog catalog={catalogData.filter(item => item.shopFor.includes('Women'))} />
               </Route>
               <Route path='/kids'>
-                <Catalog catalog={catalogData.filter(item => item.shopFor.includes('Kid'))} />
+                <Catalog catalog={catalogData.filter(item => item.shopFor.includes('Kids'))} />
               </Route>
               <Route path='/jersey'>
                 <Catalog catalog={catalogData.filter(item => item.department.includes('Jerseys'))} />
@@ -57,9 +63,6 @@ function App() {
                 <Catalog catalog={catalogData.filter(item => item.department.includes('Footwear'))} />
               </Route>
               <Route path='/accesories'>
-                <Catalog catalog={catalogData.filter(item => item.department.includes('Accessories'))} />
-              </Route>
-              <Route path='/filter'>
                 <Catalog catalog={catalogData.filter(item => item.department.includes('Accessories'))} />
               </Route>
               <Route path='/account'>
