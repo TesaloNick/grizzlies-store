@@ -57,6 +57,10 @@ export default function Cart() {
       return a + b.price*b.quantity
     }, 0).toFixed(2)
   }
+  const clearCart = () => {
+    data.setCartProducts([])
+    localStorage.setItem('cartProducts', JSON.stringify([]))
+  }
 
   return (
     <div className={styles.mainCartBlock}>
@@ -115,20 +119,28 @@ export default function Cart() {
             </div>
           ))}
         </div>
-        <div className={styles.totalPriceBlock}>
-          <p>Cart Total</p>
-          <p>US$
-            <span ref={totalPriceRef} >
-              {localStorage.getItem('cartProducts') ? 
-                (JSON.parse(localStorage.getItem('cartProducts')).length > 0 ?
-                data.cartProducts.reduce(function (a,b) {
-                  return a + b.price*b.quantity
-                }, 0).toFixed(2) : 
-                  '0') : 
-                '0'
-              }
-            </span>
-          </p>
+        <div className={styles.totalResultCartBlock}>
+          <div className={styles.clearCart} onClick={() => clearCart()}>Clear cart</div>
+          <div className={styles.totalPriceBlock}>
+            <p>Cart Total</p>
+            <p>US$
+              <span ref={totalPriceRef} >
+                {localStorage.getItem('cartProducts') ? 
+                  (JSON.parse(localStorage.getItem('cartProducts')).length > 0 ?
+                  data.cartProducts.reduce(function (a,b) {
+                    return a + b.price*b.quantity
+                  }, 0).toFixed(2) : 
+                    '0') : 
+                  '0'
+                }
+              </span>
+            </p>
+          </div>
+          <div className={styles.checkoutBlock}>
+            <div className={styles.checkoutImg}></div>
+            <p>Checkout</p>
+          </div>
+
         </div>
       </div>
 

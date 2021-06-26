@@ -48,8 +48,14 @@
 }
 .filterButton{
     margin-right: 10px;
-    border: 0px;
-    width: 18px;
-    height: 18px;
+    /* border: 0px;
+    width: 15px;
+    height: 15px; */
     cursor: pointer;
+}
+
+@media (max-width: 950px) {
+    .filterContainer{
+        display: none;
+    }
 }

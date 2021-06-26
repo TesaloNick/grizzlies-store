@@ -2,3 +2,9 @@
     display: grid;
     grid-template-columns: 1fr 4fr;
 }
+
+@media (max-width: 950px) {
+    .catalogContainer{
+        grid-template-columns: 1fr;
+    }
+}

@@ -8,6 +8,7 @@ import Nav from './Nav/Nav'
 import {NavLink} from 'react-router-dom'
 import CartData from './../../context';
 import CatalogData from './../Catalog/CatalogBlock/CatalogData'
+import FiltersData from './../Catalog/CatalogFilter/FiltersData'
 
 export default function Header() {
   const data = useContext(CartData)
@@ -28,12 +29,18 @@ export default function Header() {
     }
     data.setCatalogData(CatalogData.filter(item => item.title.toLowerCase().includes(searchText.toLowerCase())))
   }
+  const clear = () => {
+    data.setFilters(FiltersData)
+    localStorage.setItem('filters', JSON.stringify(FiltersData))
+    data.setCatalogData(CatalogData)
+    localStorage.setItem('catalogData', JSON.stringify(CatalogData))
+  }
 
   return (
     <header>
       <div className={styles.nbaHead}>
         <div>
-          <NavLink to='/'><img src={nbaLogo} alt="nbaLogo" /></NavLink> 
+          <NavLink to='/' onClick={() => clear()}><img src={nbaLogo} alt="nbaLogo" /></NavLink> 
         </div>
         {data.loginState ?
           <ul className={styles.registerButtons}>
@@ -59,7 +66,7 @@ export default function Header() {
         </NavLink>
       </div>
       <div className={styles.grizzliesHead}>
-        <NavLink to='/'>
+        <NavLink to='/' onClick={() => clear()}>
           <img src={logoImg} alt="logo" className={styles.logoImg} />
         </NavLink>
         <div className={styles.searchBlock}>

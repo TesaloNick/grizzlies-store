@@ -7,29 +7,32 @@ import {NavLink} from 'react-router-dom'
 
 export default function CatalogFilter() {
   const data = useContext(CartData)
+  let filtersTitleArray = []
 
   const changeHandler = (allFilters, filter) => {
     const filterGroup = data.filters.find(item => allFilters.title === item.title)
     const filtersChecked = filterGroup.filters.map(item => filter.name === item.name ? {...item, isChecked: true} : {...item, isChecked: false})
     const repeatFiltersGroup = {...filterGroup, filters: filtersChecked}
     const changedFilters = data.filters.map(item => repeatFiltersGroup.title === item.title ? repeatFiltersGroup : item)
+    // console.log(changedFilters);
     data.setFilters(changedFilters)
-    localStorage.setItem('filters', JSON.stringify(data.filters))
+    localStorage.setItem('filters', JSON.stringify(changedFilters))
 
     const filtersTitle = allFilters.title.replace(/\s+/g, '')[0].toLowerCase() + allFilters.title.replace(/\s+/g, '').slice(1)
-    const catalogFiltered = data.catalogData.filter(item => item[filtersTitle].length > 0)
-    console.log(catalogFiltered);
+    const catalogFiltered = CatalogData.filter(item => item[filtersTitle].length > 0)
+    const filtersTitleArray1 = filtersTitleArray.length>0 ? [...filtersTitleArray, filtersTitle] : [...filtersTitle]
+    console.log(filtersTitleArray1);
     const catalogGroupFiltered = catalogFiltered.filter(item => item[filtersTitle].includes(filter.name))
-    console.log(catalogGroupFiltered);
+    // console.log(catalogGroupFiltered);
     data.setCatalogData(catalogGroupFiltered)
   }
+  // console.log(data.filters);
 
   const сlearFilters = () => {
     data.setFilters(FiltersData)
     localStorage.setItem('filters', JSON.stringify(FiltersData))
     data.setCatalogData(CatalogData)
     localStorage.setItem('catalogData', JSON.stringify(CatalogData))
-
   }
 
   return (

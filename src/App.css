@@ -50,3 +50,11 @@
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: 1330px) {
+  #root{
+    max-width: 90%;
+  }
+}
+
+

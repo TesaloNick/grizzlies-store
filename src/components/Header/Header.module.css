@@ -127,3 +127,9 @@ header{
     height: 20px;
     background-image: url(./../../assets/img/Header/search.svg);
 }
+
+@media (max-width: 1330px) {
+    .nbaHead{
+      max-width: 90%;
+    }
+}

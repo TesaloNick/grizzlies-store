@@ -21,11 +21,6 @@ function App() {
   if (!localStorage.getItem('filters')) localStorage.setItem('filters', JSON.stringify(FiltersData))
   const [filters, setFilters] = useState(JSON.parse(localStorage.getItem('filters')) || [])
 
-  useEffect(() => {
-    setFilters(FiltersData)
-    localStorage.setItem('filters', JSON.stringify(FiltersData))
-  }, [catalogData])
-
   return (
     <div className="App">
       <BrowserRouter>
@@ -33,7 +28,7 @@ function App() {
           <Header />
             <Switch>
               <Route exact path='/'> {/* Route для главной страницы содержит prop exact, благодаря которому пути сравниваются строго*/}
-                <Catalog catalog={CatalogData} />
+                <Catalog catalog={catalogData} />
               </Route>
               <Route path='/sign-up'>
                 <SignUp />

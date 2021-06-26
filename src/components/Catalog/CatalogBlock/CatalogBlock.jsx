@@ -6,11 +6,10 @@ import CatalogData from './CatalogData'
 
 export default function CatalogBlock(props) {
   const data = useContext(CartData)
-  const [modalProduct, setModalProduct] = useState({})
-  const [isModal, setIsModal] = useState(false)
+  const [modalProduct, setModalProduct] = useState({}) // добавление продукта в модальное окно
+  const [isModal, setIsModal] = useState(false) // открытие модального окна
   const sizeRef = useRef()
   const [isSelectSize, setIsSelectSize] = useState([])
-  const {push} = useHistory()
 
   const addToCart = (event, product) => {
     event.preventDefault()
@@ -30,7 +29,7 @@ export default function CatalogBlock(props) {
   const openModalWindow = (product) => {
     setModalProduct(product)
     setIsModal(true)
-    const arraySize = new Array(product.size.length)
+    const arraySize = new Array(product.size.length) // создание массива для изменения размеров
     setIsSelectSize(arraySize.fill(false)) 
   }
 
@@ -43,19 +42,14 @@ export default function CatalogBlock(props) {
     setModalProduct(modalProduct1)
   }
 
-  const selectSize = (size, index) => {
+  const selectSize = (size, index) => { // выбор размера в модольном окне и зименение стилей
     sizeRef.current.innerHTML = size
     const arraySize = isSelectSize.map((item, idx) => index === idx ? true : false)
     setIsSelectSize(arraySize)
   }
 
-  // useEffect(() => {
-  //   push('/')
-  // })
-
   return (
     <div className={styles.catalogBlock}>
-      {/* {props.catalog.map((item, index) => ( */}
       {props.catalog.map((item, index) => (
         <div className={styles.product}>
           <img src={item.img[0]}  className={styles.productImg} alt={item.title} onClick={() => openModalWindow(item)} />
