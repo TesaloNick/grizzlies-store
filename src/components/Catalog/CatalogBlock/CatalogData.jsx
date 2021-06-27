@@ -389,7 +389,7 @@ const CatalogData = [
       title: 'Memphis Grizzlies Nike Icon Replica Onesie - Jaren Jackson Jr - Infant', 
       description: "Give your baby the authentic Grizzlies look with the Memphis Grizzlies Nike Icon Replica Onesie Jersey featuring the name and number of Jaren Jackson Jr.  Based on the on-court jersey, the Icon onesie includes authentic detailing including a printed name and number on the front and back. It has a flexible, comfortable fit that allows infants to move around with ease.", 
       price: 42.95, 
-      size: ['12MO', '18MO', '24MO'], 
+      size: ['S', 'M', 'L', 'XL', '2XL'], 
       details: [
         'Memphis Grizzlies Icon edition detailing',
         'Screen printed Jaren Jackson Jr name and number',
@@ -415,7 +415,7 @@ const CatalogData = [
       title: 'Memphis Grizzlies Nike City Edition Swingman Jersey - Jaren Jackson Jr', 
       description: "Give your baby the authentic Grizzlies look with the Memphis Grizzlies Nike Icon Replica Onesie Jersey featuring the name and number of Jaren Jackson Jr.", 
       price: 74.25, 
-      size: ['12MO', '18MO'], 
+      size: ['S', 'M', 'L', 'XL', '2XL'], 
       details: [
         'Memphis Grizzlies Icon edition detailing',
         'Screen printed Jaren Jackson Jr name and number',
@@ -465,7 +465,7 @@ const CatalogData = [
       title: "Memphis Grizzlies Nike Classic Edition Swingman Jersey - Dillon Brooks - 2020", 
       description: "Get the quality you deserve with this Swingman jersey. Brilliant on or off the court, no NBA fan should be without one!", 
       price: 79.15, 
-      size: ['12MO', '18MO', '24MO'], 
+      size: ['S', 'M', 'L', 'XL', '2XL'], 
       details: [
         'Machine wash at 30', 
         'Wash inside out separately or with like colours', 

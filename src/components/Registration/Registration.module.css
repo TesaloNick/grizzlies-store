@@ -52,3 +52,16 @@
 .rightText{
     color: green;
 }
+
+@media (max-width: 650px) {
+    .registrationBlock{
+        margin: 70px auto 20px;
+    }
+}
+@media (max-width: 450px) {
+    .registrationBlock{
+        width: 100%;
+        /* margin: 20px auto; */
+        padding: 20px;
+    }
+}

@@ -53,8 +53,11 @@ export default function CatalogBlock(props) {
       {props.catalog.map((item, index) => (
         <div className={styles.product}>
           <img src={item.img[0]}  className={styles.productImg} alt={item.title} onClick={() => openModalWindow(item)} />
-          <p className={styles.price}>US$<span>{item.price.toFixed(2)}</span></p>
-          <p className={styles.title} onClick={() => openModalWindow(item)}>{item.title}</p>
+          <div>
+            <p className={styles.price}>US$<span>{item.price.toFixed(2)}</span></p>
+            <p className={styles.title} onClick={() => openModalWindow(item)}>{item.title}</p>
+          </div>
+
         </div>
       ))}
       {isModal ? 

@@ -43,7 +43,7 @@ export default function SignUp() {
     <form className={styles.registrationBlock}  onSubmit={(event) => submitContent(event)}>
       <h2 className={styles.title}>REGISTER</h2>
       <p>Already a member? <NavLink to='/log-in' className={styles.registrationRoute}> LOG IN</NavLink></p>
-      <input type="text" placeholder="Email address*" className={styles.inputRegistration} required />
+      <input type="email" placeholder="Email address*" className={styles.inputRegistration} required />
       {emailStateWrong ?
         <p className={styles.wrongText}>Account with the email already exists</p> :
         <p></p>

@@ -106,6 +106,7 @@ export default function Cart() {
                     InputLabelProps={{shrink: true, }}
                     variant="outlined"
                     onChange={(event) => changeQuantity(event, index)} 
+                    className={styles.input}
                   />
                 </div>
  

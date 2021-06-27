@@ -66,7 +66,7 @@ export default function Footer() {
             </ul>
           </div>
         ))}
-        <div className={styles.footerLinksBlock}>
+        <div className={styles.footerSocialLinksBlock}>
           <h3 className={styles.footerTitleLink}>Follow Us</h3>
           <div className={styles.socialLinksBlock}>
             {social.map(item => (

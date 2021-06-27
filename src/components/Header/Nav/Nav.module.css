@@ -1,5 +1,6 @@
 .nav{
     position: relative;
+    overflow-x: hidden;
 }
 .nav ul{
     display: grid;
@@ -30,4 +31,10 @@ nav a{
 }
 .nav li:hover{
     background-color: #222c72;
+}
+
+@media (max-width: 650px) {
+    .nav{
+        display: none;
+    }
 }

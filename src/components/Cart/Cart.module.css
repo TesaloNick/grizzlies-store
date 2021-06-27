@@ -48,7 +48,7 @@
     top: 50px;
     border: 1px solid #d5d5d5;
     margin: 30px;
-    height: 240px;
+    height: 220px;
 }
 .totalPriceBlock{
     display: grid;
@@ -56,13 +56,13 @@
     align-items: center;
     padding: 20px;
     background-color: #f5f6f8;
-    /* height: 100px; */
+    grid-gap: 10px;
 
 }
 .totalPriceBlock p{
     justify-self: center;
     font-weight: 600;
-    padding: 10px;
+    /* padding: 10px; */
 }
 .checkoutBlock{
     display: grid;
@@ -112,4 +112,41 @@
 .clearCart:hover{
     background-color: #495d85;
     transition: .5s;
+}
+
+@media (max-width: 900px) {
+    .totalResultCartBlock{
+        margin-right: 0px;
+    }
+}
+
+@media (max-width: 800px) {
+    .mainCartBlock{
+        padding-top: 65px;
+    }
+    .cartBlock{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .totalResultCartBlock{
+        margin: 10px 0 0 0;
+    }
+    .input{
+        width: 80px;
+    }
+}
+
+@media (max-width: 450px) {
+    .productBlock{
+        grid-template-columns: 18fr 2fr 1fr;
+    }
+    .productImgBlock{
+        display: none;
+    }
+    .productInformationBlock{
+        padding: 0;
+    }
+    .productCloseButtonBlock img{
+        padding-top: 5px;
+    }
 }
