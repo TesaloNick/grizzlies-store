@@ -9,6 +9,7 @@ export default function CatalogBlock(props) {
   const [modalProduct, setModalProduct] = useState({}) // добавление продукта в модальное окно
   const [isModal, setIsModal] = useState(false) // открытие модального окна
   const sizeRef = useRef()
+  const buyButtonRef = useRef()
   const [isSelectSize, setIsSelectSize] = useState([])
 
   const addToCart = (event, product) => {
@@ -24,6 +25,13 @@ export default function CatalogBlock(props) {
       data.setCartProducts(data.cartProducts)
       localStorage.setItem('cartProducts', JSON.stringify(data.cartProducts))
     }
+
+    buyButtonRef.current.style.backgroundColor = '#5D76A9' // взаимодейсвие после нажатия на кнопку добавления в корзину
+    buyButtonRef.current.innerHTML = 'Added'
+    setTimeout(() => {
+      buyButtonRef.current.style.backgroundColor = '#e61a4d'
+      buyButtonRef.current.innerHTML = 'Add to Cart'
+    }, 1500)
   }
 
   const openModalWindow = (product) => {
@@ -86,7 +94,7 @@ export default function CatalogBlock(props) {
                   <p>Quantity</p>
                   <form className={styles.modalSelectQuantity}>
                     <input type="number" min='1' value={modalProduct.quantity} onChange={(event) => changeQuantity(event)}  />
-                    <button onClick={(event) => addToCart(event, modalProduct)}>Add to Cart</button>
+                    <button onClick={(event) => addToCart(event, modalProduct)} ref={buyButtonRef}>Add to Cart</button>
                   </form>
                 </div>
                 <div className={styles.modalInformationBlock}>
@@ -100,7 +108,6 @@ export default function CatalogBlock(props) {
                   <p>{modalProduct.description}</p>
                 </div>
               </div>
-
             </div>
           </div>
         </div> : 

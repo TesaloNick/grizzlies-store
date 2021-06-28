@@ -1,4 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
+// import {BrowserRouter, Switch, Route, NavLink} from 'react-router-dom'
 import styles from './Header.module.css'
 import logoImg from './../../assets/img/Header/logo.svg'
 import nbaLogo from './../../assets/img/Header/nbalogo.svg'
@@ -13,6 +14,7 @@ import FiltersData from './../Catalog/CatalogFilter/FiltersData'
 export default function Header() {
   const data = useContext(CartData)
   const [isSearch, setIsSearch] = useState(false)
+  const [isModalMenu, setIsModalMenu] = useState(false)
 
   const exitFromAccount = () => {
     data.setLoginState(false)
@@ -22,7 +24,7 @@ export default function Header() {
     localStorage.setItem('loginState', JSON.stringify(data.loginState))
   }, [exitFromAccount])
   
-  const search = (event) => {
+  const searchOnMainPage = (event) => {
     const searchText = event.target.value;
     if (!searchText) {
       data.setCatalogData(CatalogData)
@@ -30,6 +32,7 @@ export default function Header() {
     }
     data.setCatalogData(CatalogData.filter(item => item.title.toLowerCase().includes(searchText.toLowerCase())))
   }
+
   const clearFiltersAndCatalog = () => {
     data.setFilters(FiltersData)
     localStorage.setItem('filters', JSON.stringify(FiltersData))
@@ -37,23 +40,66 @@ export default function Header() {
     localStorage.setItem('catalogData', JSON.stringify(CatalogData))
   }
 
-  const openSearchInput = () => {
+  const openSearchInput = () => { // открытие и закрытие поисковой строки
     setIsSearch(true)
   }
   const closeSearchInput = () => {
     setIsSearch(false)
   }
-  console.log(data.loginState);
+
+  const openModalMenu = () => { // открытие и закрытие модального меню
+    setIsModalMenu(true)
+  }
+  const closeModalMenu = () => {
+    setIsModalMenu(false)
+  }
+
   return (
     <header>
         {isSearch ?
           <div className={styles.searchBlockLittle}>
-            <input type="text" className={styles.searchInputLittle} placeholder='Search' onChange={search} />
+            <input type="text" className={styles.searchInputLittle} placeholder='Search' onChange={searchOnMainPage} />
             <div className={styles.searchLittleClose} onClick={() => closeSearchInput()}></div>
           </div> :
           <div className={styles.nbaHead}>
             <div className={styles.nbaHeadLeft}>
-              <div className={styles.menuButtons}></div>
+              {isModalMenu ?
+                <div className={styles.modalMenuContainer}>
+                  <div className={styles.modalMenuBlock}>
+                    <NavLink to='/' onClick={() => {
+                      clearFiltersAndCatalog();
+                      closeModalMenu();
+                    }}>
+                      <div className={styles.nbaModalLogo}></div>
+                    </NavLink>
+                    <ul className={styles.nbaModalMenu}>
+                      <NavLink to='/men'>
+                        <li onClick={() => closeModalMenu()}>Men</li>
+                      </NavLink>
+                      <NavLink to='/women'>
+                        <li onClick={() => closeModalMenu()}>Women</li>
+                      </NavLink>
+                      <NavLink to='/kids'>
+                        <li onClick={() => closeModalMenu()}>Kids</li>
+                      </NavLink>
+                      <NavLink to='/jersey'>
+                        <li onClick={() => closeModalMenu()}>Jersey</li>
+                      </NavLink>
+                      <NavLink to='/t-shirts'>
+                        <li onClick={() => closeModalMenu()}>T-Shirts</li>
+                      </NavLink>
+                      <NavLink to='/footwear'>
+                        <li onClick={() => closeModalMenu()}>Footwear</li>
+                      </NavLink>
+                      <NavLink to='/accesories'>
+                        <li onClick={() => closeModalMenu()}>Accesories</li>
+                      </NavLink>
+                    </ul>
+                  </div>
+                  <div className={styles.close} onClick={() => closeModalMenu()}></div>
+                </div> :
+                <div className={styles.menuButtons} onClick={() => openModalMenu()}></div>
+              }
               <NavLink to='/' onClick={() => clearFiltersAndCatalog()}><div className={styles.nbaLogo}></div></NavLink> 
             </div>
             <div className={styles.nbaHeadRight}>
@@ -82,7 +128,6 @@ export default function Header() {
                   <div className={styles.accountButtons}></div>
                 </NavLink>
               }
-              {/* <div className={styles.accountButtons}></div> */}
               <NavLink to='/cart' className={styles.cart}>
                 <div>
                   <img src={cartImg} alt="cart-image" className={styles.cartImg} />
@@ -98,7 +143,7 @@ export default function Header() {
           <img src={logoImg} alt="logo" className={styles.logoImg} />
         </NavLink>
         <div className={styles.searchBlock}>
-          <input type="text"  className={styles.searchInput} placeholder='Search' onChange={search} />
+          <input type="text"  className={styles.searchInput} placeholder='Search' onChange={searchOnMainPage} />
           <div className={styles.searchLogo}></div>
         </div>
       </div>

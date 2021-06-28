@@ -48,6 +48,7 @@
     justify-content: center;
     align-items: center;
     transition: .5s;
+    z-index: 5;
 }
 .modalProduct{
     width: 70vw;
