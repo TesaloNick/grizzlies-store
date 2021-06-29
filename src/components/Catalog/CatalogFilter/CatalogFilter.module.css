@@ -30,10 +30,26 @@
 .filterSeparateContainer:first-of-type{
     border-top: 1px solid rgba(0, 0, 0, 0.205);
 }
-.filterSeparateContainer h2{
+.filterSeparateContainerTitle{
+    display: grid;
+    grid-template-columns: 1fr 20px;
+    grid-gap: 15px;
+    align-items: center;
+    justify-content: space-between;
     padding-bottom: 20px;
+}
+.filterSeparateContainerTitle h2{
     font-weight: 600;
     font-size: 18px;
+}
+
+.filterArrowImg{
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+    cursor: pointer;
+    justify-self: center;
+    transition: .5s;
 }
 .filterSeparate{
     padding: 5px;
@@ -42,10 +58,12 @@
     cursor: pointer;
     text-decoration: none;
     color: #242424;
+    transition: .5s;
 }
 .filterSeparate:hover{
     background-color: #5D76A9;
 }
+
 .filterButton{
     margin-right: 10px;
     /* border: 0px;

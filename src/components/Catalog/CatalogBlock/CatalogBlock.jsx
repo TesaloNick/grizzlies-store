@@ -3,14 +3,19 @@ import styles from './CatalogBlock.module.css'
 import { NavLink, useHistory } from 'react-router-dom'
 import CartData from '../../../context';
 import CatalogData from './CatalogData'
+import FiltersData from './../CatalogFilter/FiltersData';
+import Download from './../../../assets/img/Catalog/CatalogFilter/download.png'
+import Upload from './../../../assets/img/Catalog/CatalogFilter/upload.svg'
 
 export default function CatalogBlock(props) {
   const data = useContext(CartData)
   const [modalProduct, setModalProduct] = useState({}) // добавление продукта в модальное окно
+  const [isModalFilters, setIsModalFilters] = useState(false) // добавление продукта в модальное окно
   const [isModal, setIsModal] = useState(false) // открытие модального окна
   const sizeRef = useRef()
   const buyButtonRef = useRef()
   const [isSelectSize, setIsSelectSize] = useState([])
+  const [isShowFiltersBlock, setIsShowFiltersBlock] = useState(new Array(FiltersData.length).fill(false))
 
   const addToCart = (event, product) => {
     event.preventDefault()
@@ -56,8 +61,29 @@ export default function CatalogBlock(props) {
     setIsSelectSize(arraySize)
   }
 
+  const openModalFilters = () => { // открытие и закрытие модального меню
+    setIsModalFilters(true)
+  }
+  const closeModalFilters = () => {
+    setIsModalFilters(false)
+  }
+
+  const showFiltersBlock = (index) => {
+    const newShowFiltersBlock = isShowFiltersBlock.map((item, idx) => index === idx ? false : item)
+    setIsShowFiltersBlock(newShowFiltersBlock)
+  }
+  const notShowFiltersBlock = (index) => {
+    const newShowFiltersBlock = isShowFiltersBlock.map((item, idx) => index === idx ? true : item)
+    setIsShowFiltersBlock(newShowFiltersBlock)
+  }
+
   return (
     <div className={styles.catalogBlock}>
+      <div className={styles.filtersButton} onClick={() => openModalFilters()}>
+        <div className={styles.filtersInsideImg}></div>
+        Filters
+      </div>
+
       {props.catalog.map((item, index) => (
         <div className={styles.product}>
           <img src={item.img[0]}  className={styles.productImg} alt={item.title} onClick={() => openModalWindow(item)} />
@@ -65,9 +91,37 @@ export default function CatalogBlock(props) {
             <p className={styles.price}>US$<span>{item.price.toFixed(2)}</span></p>
             <p className={styles.title} onClick={() => openModalWindow(item)}>{item.title}</p>
           </div>
-
         </div>
+
       ))}
+
+      {isModalFilters ?
+      <div className={styles.modalFiltersContainer}>
+        <div className={styles.modalFiltersBlock}>
+          <h2>Filters</h2>
+          {FiltersData.map((item, index) => (
+            isShowFiltersBlock[index] ?
+            <div className={styles.filterSeparateContainer}>
+              <div className={styles.filterSeparateContainerTitle}>
+                <h2>{item.title}</h2>
+                <img className={styles.filterArrowImg} onClick={() => showFiltersBlock(index)} src={Download} alt='Download' />
+              </div>
+              {item.filters.map(filter => (
+                <p>{filter.name}</p>
+              ))}
+            </div> :
+            <div className={styles.filterSeparateContainer}>
+              <div className={styles.filterSeparateContainerTitle}>
+                <h2>{item.title}</h2>
+                <img className={styles.filterArrowImg} onClick={() => notShowFiltersBlock(index)} src={Upload} alt='Upload' />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div> :
+      <div></div>
+      }
+
       {isModal ? 
         <div className={styles.modalContainer}>
           <div className={styles.modalBlock}>

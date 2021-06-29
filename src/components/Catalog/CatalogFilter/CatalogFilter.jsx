@@ -1,12 +1,15 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect, useRef} from 'react';
 import styles from './CatalogFilter.module.css'
 import CartData from '../../../context';
 import FiltersData from './FiltersData';
 import CatalogData from './../CatalogBlock/CatalogData'
+import Download from './../../../assets/img/Catalog/CatalogFilter/download.png'
+import Upload from './../../../assets/img/Catalog/CatalogFilter/upload.svg'
 import {NavLink} from 'react-router-dom'
 
 export default function CatalogFilter() {
   const data = useContext(CartData)
+  const [isShowFiltersBlock, setIsShowFiltersBlock] = useState(new Array(FiltersData.length).fill(true))
   let filtersTitleArray = []
 
   const changeHandler = (allFilters, filter) => {
@@ -14,7 +17,6 @@ export default function CatalogFilter() {
     const filtersChecked = filterGroup.filters.map(item => filter.name === item.name ? {...item, isChecked: true} : {...item, isChecked: false})
     const repeatFiltersGroup = {...filterGroup, filters: filtersChecked}
     const changedFilters = data.filters.map(item => repeatFiltersGroup.title === item.title ? repeatFiltersGroup : item)
-    // console.log(changedFilters);
     data.setFilters(changedFilters)
     localStorage.setItem('filters', JSON.stringify(changedFilters))
 
@@ -23,10 +25,8 @@ export default function CatalogFilter() {
     const filtersTitleArray1 = filtersTitleArray.length>0 ? [...filtersTitleArray, filtersTitle] : [...filtersTitle]
     console.log(filtersTitleArray1);
     const catalogGroupFiltered = catalogFiltered.filter(item => item[filtersTitle].includes(filter.name))
-    // console.log(catalogGroupFiltered);
     data.setCatalogData(catalogGroupFiltered)
   }
-  // console.log(data.filters);
 
   const сlearFilters = () => {
     data.setFilters(FiltersData)
@@ -35,12 +35,25 @@ export default function CatalogFilter() {
     localStorage.setItem('catalogData', JSON.stringify(CatalogData))
   }
 
+  const showFiltersBlock = (index) => {
+    const newShowFiltersBlock = isShowFiltersBlock.map((item, idx) => index === idx ? false : item)
+    setIsShowFiltersBlock(newShowFiltersBlock)
+  }
+  const notShowFiltersBlock = (index) => {
+    const newShowFiltersBlock = isShowFiltersBlock.map((item, idx) => index === idx ? true : item)
+    setIsShowFiltersBlock(newShowFiltersBlock)
+  }
+
   return (
     <div className={styles.filterContainer}>
       <div className={styles.сlearFilters} onClick={() => сlearFilters()}>Сlear filters</div>
-      {data.filters.map(item => (
+      {data.filters.map((item, index) => (
+        isShowFiltersBlock[index] ?
         <div className={styles.filterSeparateContainer}>
-          <h2>{item.title}</h2>
+          <div className={styles.filterSeparateContainerTitle}>
+            <h2>{item.title}</h2>
+            <img className={styles.filterArrowImg} onClick={() => showFiltersBlock(index)} src={Download} alt='Download' />
+          </div>
           {item.filters.map(filter => (
             <div className={styles.filterSeparate}>
               <input 
@@ -55,9 +68,14 @@ export default function CatalogFilter() {
               <label for={filter.name} className={styles.filterLabel}>{filter.name}</label>
             </div>
           ))}
+        </div> :
+        <div className={styles.filterSeparateContainer}>
+          <div className={styles.filterSeparateContainerTitle}>
+            <h2>{item.title}</h2>
+            <img className={styles.filterArrowImg} onClick={() => notShowFiltersBlock(index)} src={Upload} alt='Upload' />
+          </div>
         </div>
       ))}
     </div>
   )
-
 }

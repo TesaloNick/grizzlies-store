@@ -2,7 +2,10 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     /* grid-gap: 20px; */
-    padding: 20px 0;
+    padding-bottom: 20px;
+}
+.filtersButton{
+    display: none;
 }
 .product{
     border-bottom: 1px solid rgba(0, 0, 0, 0.205);
@@ -213,6 +216,97 @@
     }
 }
 
+@media (max-width: 950px) {
+    .catalogBlock{
+        position: relative;
+        margin-top: 60px;
+        border-top: 1px solid rgba(0, 0, 0, 0.205);
+    }
+    .filtersButton{
+        position: absolute;
+        top: -50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        justify-self: right;
+        
+        width: 40%;
+        height: 40px;
+        border: 1px solid #b5b5b5;
+        border-radius: 5px;
+        color: #242424;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: .5s;
+    }
+    .filtersButton:hover{
+        background-color: #fafafa;
+        transition: .5s;
+    }
+    .filtersInsideImg{
+        width: 30px;
+        height: 30px;
+        background-size: cover;
+        background-image: url(./../../../assets/img/Catalog/CatalogFilter/filter-icon.png);
+        margin-right: 10px;
+    }
+    .modalFiltersContainer{
+        opacity: 1;
+        position: fixed;
+        height: 100vh;
+        width: 100vw;
+        background: #0000004d;
+        top: 0;
+        left: 0;
+        display: grid;
+        align-items: center;
+        transition: .5s;
+        z-index: 5 !important;
+    }
+    .modalFiltersBlock{
+        position: absolute;
+        padding: 20px;
+        padding-right: 40px;
+        right: 0;
+        background: #f5f6f8;
+        min-height: 100vh;
+        width: 80%;
+        overflow-y: auto;
+        z-index: 5 !important;
+    }
+    .closeFiltersModal{
+        position: absolute;
+        width: 5vw;
+        height: 5vw;
+        background-image: url(./../../../assets/img/Header/close-white.png);
+        background-size: cover;
+        top: 5vw;
+        left: 8vw;
+        cursor: pointer;
+    }
+    .filterArrowImg{
+        width: 20px;
+        height: 20px;
+        background-size: cover;
+        cursor: pointer;
+        justify-self: center;
+        transition: .5s;
+    }
+    .filterSeparateContainerTitle{
+        display: grid;
+        grid-template-columns: 1fr 20px;
+        grid-gap: 15px;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 20px;
+    }
+    .filterSeparateContainerTitle h2{
+        font-weight: 600;
+        font-size: 18px;
+    }
+}
+
 @media (max-width: 800px) {
     .catalogBlock{
         grid-template-columns: repeat(2 , 1fr);
@@ -226,7 +320,7 @@
 
 @media (max-width: 650px) {
     .catalogBlock{
-        padding-top: 65px;
+        margin-top: 120px;
     }
 }
 
