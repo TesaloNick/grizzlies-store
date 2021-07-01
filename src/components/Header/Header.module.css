@@ -26,7 +26,7 @@ header{
 }
 .nbaLogo{
     height: 40px;
-    width: 125px;
+    width: 126px;
     background-image: url(./../../assets/img/Header/nbalogo.svg);
     background-size: cover;
 }
@@ -196,6 +196,7 @@ header{
     .searchBlockLittle{
         position: relative;
         width: 100%;
+        z-index: 1;
     }
     .searchInputLittle{
         position: fixed;
@@ -208,6 +209,7 @@ header{
         padding: 0 10px;
         font-size: 18px;
         color: #242424;
+        z-index: 1;
     }
     .searchLittleClose{
         cursor: pointer;
@@ -218,6 +220,7 @@ header{
         height: 35px;
         background-image: url(./../../assets/img/Cart/close.svg);
         background-size: cover;
+        z-index: 1;
     }
     .modalMenuContainer{
         opacity: 1;

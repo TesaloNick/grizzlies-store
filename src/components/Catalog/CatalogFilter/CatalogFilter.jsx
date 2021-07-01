@@ -10,9 +10,11 @@ import {NavLink} from 'react-router-dom'
 export default function CatalogFilter() {
   const data = useContext(CartData)
   const [isShowFiltersBlock, setIsShowFiltersBlock] = useState(new Array(FiltersData.length).fill(true))
+  const [isShowFiltersBlockModal, setIsShowFiltersBlockModal] = useState(new Array(FiltersData.length).fill(false))
   let filtersTitleArray = []
+  const [isModalFilters, setIsModalFilters] = useState(false) // открытие модального окна с фильтрами
 
-  const changeHandler = (allFilters, filter) => {
+  const applyFilter = (allFilters, filter) => {
     const filterGroup = data.filters.find(item => allFilters.title === item.title)
     const filtersChecked = filterGroup.filters.map(item => filter.name === item.name ? {...item, isChecked: true} : {...item, isChecked: false})
     const repeatFiltersGroup = {...filterGroup, filters: filtersChecked}
@@ -26,6 +28,7 @@ export default function CatalogFilter() {
     console.log(filtersTitleArray1);
     const catalogGroupFiltered = catalogFiltered.filter(item => item[filtersTitle].includes(filter.name))
     data.setCatalogData(catalogGroupFiltered)
+    setTimeout(() => setIsModalFilters(false), 200)
   }
 
   const сlearFilters = () => {
@@ -39,9 +42,25 @@ export default function CatalogFilter() {
     const newShowFiltersBlock = isShowFiltersBlock.map((item, idx) => index === idx ? false : item)
     setIsShowFiltersBlock(newShowFiltersBlock)
   }
-  const notShowFiltersBlock = (index) => {
+  const closeFiltersBlock = (index) => {
     const newShowFiltersBlock = isShowFiltersBlock.map((item, idx) => index === idx ? true : item)
     setIsShowFiltersBlock(newShowFiltersBlock)
+  }
+  
+  const showFiltersBlockModal = (index) => {
+    const newShowFiltersBlock = isShowFiltersBlockModal.map((item, idx) => index === idx ? false : item)
+    setIsShowFiltersBlockModal(newShowFiltersBlock)
+  }
+  const closeFiltersBlockModal = (index) => {
+    const newShowFiltersBlock = isShowFiltersBlockModal.map((item, idx) => index === idx ? true : false)
+    setIsShowFiltersBlockModal(newShowFiltersBlock)
+  }
+
+  const openModalFilters = () => { // открытие и закрытие модального окна с фильтрами
+    setIsModalFilters(true)
+  }
+  const closeModalFilters = () => {
+    setIsModalFilters(false)
   }
 
   return (
@@ -61,8 +80,8 @@ export default function CatalogFilter() {
                 id={filter.name}
                 name={item.title} 
                 value={filter.name} 
-                className={styles.filterButton} 
-                onChange={() => changeHandler(item, filter)} 
+                className={styles.filterRadioButton} 
+                onChange={() => applyFilter(item, filter)} 
                 checked={filter.isChecked} 
               />
               <label for={filter.name} className={styles.filterLabel}>{filter.name}</label>
@@ -72,10 +91,43 @@ export default function CatalogFilter() {
         <div className={styles.filterSeparateContainer}>
           <div className={styles.filterSeparateContainerTitle}>
             <h2>{item.title}</h2>
-            <img className={styles.filterArrowImg} onClick={() => notShowFiltersBlock(index)} src={Upload} alt='Upload' />
+            <img className={styles.filterArrowImg} onClick={() => closeFiltersBlock(index)} src={Upload} alt='Upload' />
           </div>
         </div>
       ))}
+      <div className={styles.filtersButton} onClick={() => openModalFilters()}>
+        <div className={styles.filtersInsideImg}></div>
+        Filters
+      </div>
+      {isModalFilters ?
+      <div className={styles.modalFiltersContainer}>
+        <div className={styles.modalFiltersBlock}>
+          <h2>Filters</h2>
+          {data.filters.map((item, index) => (
+            isShowFiltersBlockModal[index] ?
+            <div className={styles.filterModalSeparateContainer}>
+              <div className={styles.filterSeparateContainerTitle} onClick={() => showFiltersBlockModal(index)}>
+                <h2>{item.title}</h2>
+                <img className={styles.filterArrowImg} src={Download} alt='Download' />
+              </div>
+              {item.filters.map(filter => (
+                <p onClick={() => applyFilter(item, filter)}>{filter.name}</p>
+              ))}
+            </div> :
+            <div className={styles.filterModalSeparateContainer}>
+              <div className={styles.filterSeparateContainerTitle} onClick={() => closeFiltersBlockModal(index)}>
+                <h2>{item.title}</h2>
+                <img className={styles.filterArrowImg} src={Upload} alt='Upload' />
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className={styles.closeFiltersModal} onClick={() => closeModalFilters()}></div>
+      </div> :
+      <div></div>
+      }
+
+
     </div>
   )
 }
