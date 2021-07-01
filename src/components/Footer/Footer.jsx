@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styles from './Footer.module.css'
 import twitter from './../../assets/img/Footer/social/twitter.svg'
 import facebook from './../../assets/img/Footer/social/facebook.svg'
@@ -10,9 +10,11 @@ import amex from './../../assets/img/Footer/payment/amex.svg'
 import paypal from './../../assets/img/Footer/payment/paypal.svg'
 import visa from './../../assets/img/Footer/payment/visa.svg'
 import mastercard from './../../assets/img/Footer/payment/mastercard.svg'
+import CartData from '../../context';
 
 
 export default function Footer() {
+  const data = useContext(CartData)
   const footerGreyLinks = [
     {
       title: 'Customer Service',
@@ -33,7 +35,7 @@ export default function Footer() {
     {
       title: 'Information',
       links: [
-        {name: 'My Account', link:'https://global.nbastore.com/nba-your-account/ch-1486'},
+        {name: 'My Account', link: data.loginState ? '/account' : '/log-in'},
         {name: 'About Us', link:'https://global.nbastore.com/nba-about-us/ch-1481'},
       ]
     },
