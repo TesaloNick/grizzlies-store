@@ -124,7 +124,7 @@ export default function CatalogFilter() {
         </div>
         <div className={styles.closeFiltersModal} onClick={() => closeModalFilters()}></div>
       </div> :
-      <div></div>
+      <React.Fragment></React.Fragment>
       }
 
 

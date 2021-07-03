@@ -30,15 +30,18 @@ export default function CatalogBlock(props) {
 
     buyButtonRef.current.style.backgroundColor = '#5D76A9' // взаимодейсвие после нажатия на кнопку добавления в корзину
     buyButtonRef.current.innerHTML = 'Added'
-    setTimeout(() => {
-      buyButtonRef.current.style.backgroundColor = '#e61a4d'
-      buyButtonRef.current.innerHTML = 'Add to Cart'
+     setTimeout(() => {
+       try {
+        buyButtonRef.current.style.backgroundColor = '#e61a4d'
+        buyButtonRef.current.innerHTML = 'Add to Cart'
+       } catch {}
     }, 1500)
     setIsCloseModal(true)
   }
 
   const openModalWindow = (product) => {
-    setModalProduct(product)
+    const modalProductNew = {...product, quantity: 1}
+    setModalProduct(modalProductNew)
     setIsModal(true)
     const arraySize = new Array(product.size.length) // создание массива для изменения размеров
     setIsSelectSize(arraySize.fill(false)) 
@@ -47,12 +50,11 @@ export default function CatalogBlock(props) {
   const closeModalWindow = () => {
     setIsModal(false)
     setIsCloseModal(false)
-
   }
 
   const changeQuantity = (event) => { // изменение количества товаров в корзине
-    const modalProduct1 = {...modalProduct, quantity: +event.target.value}
-    setModalProduct(modalProduct1)
+    const modalProductNew = {...modalProduct, quantity: +event.target.value}
+    setModalProduct(modalProductNew)
   }
 
   const selectSize = (size, index) => { // выбор размера в модольном окне и зименение стилей
@@ -102,11 +104,14 @@ export default function CatalogBlock(props) {
                   <form className={styles.modalSelectQuantity}>
                     <input type="number" min='1' value={modalProduct.quantity} onChange={(event) => changeQuantity(event)}  />
                     <button onClick={(event) => addToCart(event, modalProduct)} ref={buyButtonRef}>Add to Cart</button>
-                    {isCloseModal ?
-                    <p  onClick={() => closeModalWindow()}>Return to catalog</p> :
-                    <div></div>
-                    }
                   </form>
+                  {isCloseModal ?
+                  <div className={styles.modalLinksAfterBuying}>
+                    <a onClick={() => closeModalWindow()}>Return to catalog</a>
+                    <NavLink to='/cart'>Go to cart</NavLink>
+                  </div> :
+                  <React.Fragment></React.Fragment>
+                  }
                 </div>
                 <div className={styles.modalInformationBlock}>
                   <h2>Details</h2>
@@ -122,7 +127,7 @@ export default function CatalogBlock(props) {
             </div>
           </div>
         </div> : 
-        <div></div>
+        <React.Fragment></React.Fragment>
       }
     </div>
 

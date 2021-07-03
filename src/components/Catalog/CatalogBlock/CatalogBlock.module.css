@@ -1,12 +1,9 @@
 .catalogBlock{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    /* grid-gap: 20px; */
     padding-bottom: 20px;
+    height: min-content; /*для высоты общего блока не на всю высоту родителя*/ 
 }
-/* .filtersButton{
-    display: none;
-} */
 .product{
     border-bottom: 1px solid rgba(0, 0, 0, 0.205);
     padding: 30px 10px;
@@ -196,15 +193,19 @@
     background-color: #d11846;
     transition: .5s;
 }
-.modalSelectQuantity p{
+.modalLinksAfterBuying{
+    display: grid;
+    grid-auto-flow: column;
+    padding-top: 20px;
+}
+.modalLinksAfterBuying a{
     font-size: 18px;
     cursor: pointer;
     color: #242424;
-    margin: auto;
-    grid-column-start: 1;
-    grid-column-end: 3;
+    text-decoration: none;
+    justify-self: center;
 }
-.modalSelectQuantity p:hover{
+.modalLinksAfterBuying a:hover{
     text-decoration: underline;
     transition: .3s;
 }

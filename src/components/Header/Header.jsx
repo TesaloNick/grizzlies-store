@@ -45,6 +45,7 @@ export default function Header() {
   }
   const closeSearchInput = () => {
     setIsSearch(false)
+    data.setCatalogData(CatalogData)
   }
 
   const openModalMenu = () => { // открытие и закрытие модального меню

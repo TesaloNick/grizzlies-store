@@ -63,7 +63,6 @@ function App() {
               <Route path='/account'>
                 <Account />
               </Route>
-
             </Switch>
           <Footer />
         </CartData.Provider>

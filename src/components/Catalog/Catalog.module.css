@@ -1,6 +1,7 @@
 .catalogContainer{
     display: grid;
     grid-template-columns: 1fr 4fr;
+    /* height: max-content; */
 }
 
 @media (max-width: 950px) {

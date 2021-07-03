@@ -57,7 +57,7 @@ export default function SignUp() {
       <input type="text" placeholder="First Name*" className={styles.inputRegistration} required />
       <input type="text" placeholder="Last Name*" className={styles.inputRegistration} required />
       {signingState ?
-        <p className={styles.rightText}>You can log into your account. <NavLink to='/log-in' className={styles.registrationRoute}> LOG IN</NavLink></p> :
+        <p className={styles.rightText}>You can log in to your account. <NavLink to='/log-in' className={styles.registrationRoute}> LOG IN</NavLink></p> :
         <p></p>
       }
       <button className={styles.sendRegistrationInfo}>Create An Account</button>
