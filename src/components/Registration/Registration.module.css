@@ -1,3 +1,12 @@
+.formWrapper{
+    flex: 1 1 auto;
+    background-color: #fff;
+}
+.form{
+    background-color: #fff;
+    max-width: 1200px;
+    margin: auto;
+}
 .registrationBlock{
     width: 400px;
     margin: 40px auto;
@@ -53,9 +62,15 @@
     color: green;
 }
 
+@media (max-width: 13300px) {
+    .form{
+        width: 95%;
+    }
+}
+
 @media (max-width: 650px) {
     .registrationBlock{
-        margin: 70px auto 20px;
+        margin: 83px auto 20px;
     }
 }
 @media (max-width: 450px) {

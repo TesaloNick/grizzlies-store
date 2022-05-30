@@ -1,4 +1,10 @@
+.mainCartBlockWrapper{
+    background-color: #fff;
+    flex: 1 1 auto;
+}
 .mainCartBlock{
+    max-width: 1200px;
+    margin: auto;
     padding: 20px 0;
 }
 .cartBlock{
@@ -112,6 +118,12 @@
 .clearCart:hover{
     background-color: #495d85;
     transition: .5s;
+}
+
+@media (max-width: 1330px) {
+    .mainCartBlock{
+        width: 95%;
+    }
 }
 
 @media (max-width: 900px) {

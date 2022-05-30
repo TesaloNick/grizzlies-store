@@ -1,7 +1,19 @@
+.catalogContainerWrapper{
+    background-color: #fff;
+}
+
 .catalogContainer{
     display: grid;
     grid-template-columns: 1fr 4fr;
-    /* height: max-content; */
+    flex: 1 1 auto;
+    max-width: 1200px;
+    margin: auto;
+}
+
+@media (max-width: 1330px) {
+    .catalogContainer{
+        width: 95%;
+    }
 }
 
 @media (max-width: 950px) {

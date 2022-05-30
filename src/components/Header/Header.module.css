@@ -1,43 +1,47 @@
 header{
     position: relative;
 }
-.nbaHead{
+
+.nbaHeadWrapper{
     position: fixed;
     top: 0;
+    background-color: white;
+    z-index: 2;
+    width: 100%;
+    -webkit-box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    padding: 10px 0;
+}
+
+.nbaHead{
     max-width: 1200px;
-    font-size: 13px;
+    margin: auto;
     display: grid; 
     align-items: center;
     grid-auto-flow: column;
     justify-content: space-between;
-    background-color: white;
-    z-index: 2;
-    width: 100%;
 }
-.nbaHead::before{
-    content: '';
-    position: absolute;
-    background-color: white;
-    width: 100vw;
-    height: 100%;
-    top: 0;
-    left: calc(50% - 50vw);
-    z-index: -1;
-}
+
 .nbaLogo{
     height: 40px;
     width: 126px;
     background-image: url(./../../assets/img/Header/nbalogo.svg);
     background-size: cover;
 }
+
 .nbaHead img{
     height: 40px;
     padding: 5px;
 }
+
 .nbaHeadRight, .nbaHeadLeft{
     display: flex;
     align-items: center;
+    font-size: 13px;
+
 }
+
 .registerButtons{
     justify-self: end;
     display: grid;
@@ -45,17 +49,21 @@ header{
     list-style-type: none;
     text-decoration: none;
 }
+
 .registerButtons li{
     padding: 0 10px;
     color: #242424;
     cursor: pointer;
 }
+
 .registerButtons li:hover{
     text-decoration: underline;
 }
+
 .registerButtons a{
     text-decoration: none;
 }
+
 .cart{
     justify-self: end;
     position: relative;
@@ -65,10 +73,12 @@ header{
     background-color: #e61a4d;
     width: 60px;
 }
+
 .cart:hover{
     background-color: #d11846;
     transition: .5s;
 } 
+
 .cart span{
     position: absolute;
     content: '';
@@ -85,39 +95,36 @@ header{
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    /* z-index: -1; */
 }
+
 .cartImg{
     padding: 5px;
 }
 
-.grizzliesHead{
+
+/* --------------------------------------------------------------------------- */
+
+
+.grizzliesHeadWrapper{
     position: relative;
-    display: flex;
-    /* max-width: 1200px; */
-    /* justify-content: space-between; */
-    align-items: center;
-    padding: 10px 20px;
-    margin-top: 45px;
-    max-width: 100%;
-    overflow: hidden;
-}
-.grizzliesHead::before{
-    content: '';
-    position: absolute;
     background-color: #5D76A9;
-    width: 100vw;
-    /* max-width: 100vw; */
-    height: 100%;
-    top: 0;
-    left: calc(50% - 50vw);
-    z-index: -1;
-    /* overflow: hidden; */
+    padding: 10px 0;
+    margin-top: 63px;
+    width: 100%;
 }
+
+.grizzliesHead{
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+}
+
 .searchBlock{
     position: relative;
     width: 50%;
 }
+
 .searchInput{
     width: 100%;
     height: 40px;
@@ -127,10 +134,12 @@ header{
     font-size: 18px;
     color: #242424;
 }
+
 .logoImg{
     width: 200px;
     margin-right: 40px;
 }
+
 .searchLogo{
     cursor: pointer;
     position: absolute;
@@ -142,29 +151,25 @@ header{
 }
 
 @media (max-width: 1330px) {
-    .nbaHead{
-      max-width: 90%;
+    .nbaHead, .grizzliesHead{
+      max-width: 95%;
     }
 }
 
 @media (max-width: 650px) {
-    .nbaHead{
-        padding: 10px 0;
-    }
-    .nbaHead, .nbaHead::before, .cart, .cart:hover{
+    .nbaHeadWrapper, .cart, .cart:hover{
         background-color: #5D76A9;
     }
     .nbaLogo{
         background-image: url(./../../assets/img/Header/nbalogoWhite.svg);
     }
-    .registerButtons, .grizzliesHead{
+    .registerButtons, .grizzliesHeadWrapper{
         display: none;
     }
     .cart{
         width: 40px;
         padding: 0px;
         margin-right: 7px;
-        /* z-index: -1; */
     }
     .cart span{
         right: 0px;
@@ -234,7 +239,7 @@ header{
         align-items: center;
         transition: .5s;
         z-index: 5 !important;
-}
+    }
     .modalMenuBlock{
         position: relative;
         padding: 20px;
