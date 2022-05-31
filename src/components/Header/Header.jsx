@@ -131,10 +131,10 @@ export default function Header() {
                 </NavLink>
               }
               <NavLink to='/cart' className={styles.cart}>
-                <div>
-                  <img src={cartImg} alt="cart-image" className={styles.cartImg} />
-                  <span>{data.cartProducts.length}</span>
-                </div>
+                {/* <div> */}
+                <img src={cartImg} alt="cart-image" className={styles.cartImg} />
+                <span>{data.cartProducts.length}</span>
+                {/* </div> */}
               </NavLink>
             </div>
           </div>
