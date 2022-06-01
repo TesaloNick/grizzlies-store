@@ -73,17 +73,13 @@ header{
 .cart:hover{
     background-color: #d11846;
     transition: .5s;
-} 
-
-.cart img{
-
 }
 
 .cart span{
     position: absolute;
     content: '';
     top: 5px;
-    right: 5px;
+    right: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -108,7 +104,7 @@ header{
 
 .grizzliesHeadWrapper{
     position: relative;
-    background-color: #0a3665;
+    background-color: #5d76a9;
     padding: 10px 0;
     margin-top: 40px;
     width: 100%;
@@ -126,6 +122,9 @@ header{
     width: 50%;
 }
 
+.searchInput:focus{
+    border: 0;
+}
 .searchInput{
     width: 100%;
     height: 40px;
@@ -134,6 +133,7 @@ header{
     padding: 0 50px 0 10px;
     font-size: 18px;
     color: #242424;
+    outline: none;
 }
 
 .logoImg{
@@ -231,33 +231,38 @@ header{
     .modalMenuContainer{
         opacity: 1;
         position: fixed;
-        height: 100vh;
-        width: 100vw;
+        height: 100%;
+        width: 100%;
         background: #0000004d;
         top: 0;
         left: 0;
         display: grid;
-        align-items: center;
         transition: .5s;
         z-index: 5 !important;
+        overflow-y: auto;
+    }
+    .modalMenuBlockClose{
+        position: fixed;
+        height: 100%;
+        width: 100%;
     }
     .modalMenuBlock{
         position: relative;
         padding: 20px;
         background: #f5f6f8;
-        min-height: 100vh;
+        min-height: 100%;
         width: 80%;
-        overflow-y: auto;
         z-index: 5 !important;
+        overflow-y: auto;
     }
     .close{ 
-        position: absolute;
-        width: 5vw;
-        height: 5vw;
+        position: fixed;
+        width: 25px;
+        height: 25px;
         background-image: url(./../../assets/img/Header/close-white.png);
         background-size: cover;
-        top: 5vw;
-        right: 10vw;
+        top: 5%;
+        right: 10%;
         cursor: pointer;
         z-index: 6;
     }

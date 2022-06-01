@@ -39,8 +39,8 @@
 .modalContainer{
     opacity: 1;
     position: fixed;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     background: #0000004d;
     top: 0;
     left: 0;
@@ -50,10 +50,10 @@
     transition: .5s;
     z-index: 5;
 }
-.modalProduct{
-    width: 70vw;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+.modalBlockClose{
+    position: fixed;
+    height: 100%;
+    width: 100%;
 }
 .modalBlock{
     position: relative;
@@ -64,9 +64,12 @@
     align-items: center;
     max-height: 80vh;
     overflow-y: auto;
-    /* border: 2px solid black; */
     border-radius: 10px;
     z-index: 5;
+}
+.modalProduct{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 .modalImage{
     margin-bottom: 30px;
@@ -177,6 +180,7 @@
     border-radius: 5px;
     width: 100px;
     justify-self: center;
+    outline: none;
 }
 .modalSelectQuantity button{
     height: 40px;

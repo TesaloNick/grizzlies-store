@@ -1,11 +1,11 @@
 .catalogContainerWrapper{
     background-color: #fff;
+    flex: 1 1 auto;
 }
 
 .catalogContainer{
     display: grid;
     grid-template-columns: 1fr 4fr;
-    flex: 1 1 auto;
     max-width: 1200px;
     margin: auto;
 }

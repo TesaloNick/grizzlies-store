@@ -1,5 +1,5 @@
 .navWrapper{
-    background-color: #12173F;
+    background-color: #12173f;
 }
 
 .nav{
@@ -7,17 +7,6 @@
     margin: auto;
 }
 
-/* .nav::before{
-    content: '';
-    position: absolute;
-    
-    width: 100vw;
-    height: 100%;
-    top: 0;
-    left: calc(50% - 50vw);
-    z-index: -1;
-    overflow-x: hidden;
-} */
 .nav ul{
     display: grid;
     grid-auto-flow: column;
