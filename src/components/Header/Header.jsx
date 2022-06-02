@@ -11,9 +11,9 @@ import CartData from './../../context';
 import CatalogData from './../Catalog/CatalogBlock/CatalogData'
 import FiltersData from './../Catalog/CatalogFilter/FiltersData'
 // ---
-import * as React from 'react';
+// import * as React from 'react';
 import Box from '@mui/material/Box';
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
@@ -23,17 +23,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-
-type Anchor = 'top' | 'left' | 'bottom' | 'right';
 // ---
 
-export default function SwipeableTemporaryDrawer() {
 
-
-  return (
-
-  );
-}
 
 export default function Header() {
   const data = useContext(CartData)
@@ -87,22 +79,15 @@ export default function Header() {
     right: false,
   });
 
-  const toggleDrawer =
-    (anchor: Anchor, open: boolean) =>
-      (event: React.KeyboardEvent | React.MouseEvent) => {
-        if (
-          event &&
-          event.type === 'keydown' &&
-          ((event as React.KeyboardEvent).key === 'Tab' ||
-            (event as React.KeyboardEvent).key === 'Shift')
-        ) {
-          return;
-        }
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
 
-        setState({ ...state, [anchor]: open });
-      };
+    setState({ ...state, [anchor]: open });
+  };
 
-  const list = (anchor: Anchor) => (
+  const list = (anchor) => (
     <Box
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
       role="presentation"
@@ -110,51 +95,28 @@ export default function Header() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+        <NavLink to='/' onClick={() => {
+          clearFiltersAndCatalog();
+          closeModalMenu();
+        }}>
+          <div className={styles.nbaModalLogo}></div>
+        </NavLink>
+        {['Men', 'Women', 'Kids', 'Jersey', 'T-Shirts', 'Footwear', 'Accesories'].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
+              <NavLink to={text}>
+                <ListItemText primary={text} />
+              </NavLink>
             </ListItemButton>
           </ListItem>
         ))}
       </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
+    </Box >
   );
   // -----------------------
 
   return (
     <header>
-      <div>
-        {(['left', 'right', 'top', 'bottom'] as const).map((anchor) => (
-          <React.Fragment key={anchor}>
-            <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-            <SwipeableDrawer
-              anchor={anchor}
-              open={state[anchor]}
-              onClose={toggleDrawer(anchor, false)}
-              onOpen={toggleDrawer(anchor, true)}
-            >
-              {list(anchor)}
-            </SwipeableDrawer>
-          </React.Fragment>
-        ))}
-      </div>
       {isSearch ?
         <div className={styles.searchBlockLittle}>
           <input type="text" className={styles.searchInputLittle} placeholder='Search' onChange={searchOnMainPage} />
@@ -202,7 +164,22 @@ export default function Header() {
                   </div>
                   <div className={styles.close} onClick={() => closeModalMenu()}></div>
                 </div> :
-                <div className={styles.menuButtons} onClick={() => openModalMenu()}></div>
+                <div>
+                  {['left'].map((anchor) => (
+                    <React.Fragment key={anchor}>
+                      {/* <div className={styles.menuButtons} onClick={() => toggleDrawer(anchor, true)}></div> */}
+                      <Button onClick={toggleDrawer(anchor, true)} className={styles.menuButtons}></Button>
+                      <Drawer
+                        anchor={anchor}
+                        open={state[anchor]}
+                        onClose={toggleDrawer(anchor, false)}
+                      >
+                        {list(anchor)}
+                      </Drawer>
+                    </React.Fragment>
+                  ))}
+                </div>
+                // <div className={styles.menuButtons} onClick={() => openModalMenu()}></div>
               }
               <NavLink to='/' onClick={() => clearFiltersAndCatalog()}><div className={styles.nbaLogo}></div></NavLink>
             </div>
@@ -240,12 +217,12 @@ export default function Header() {
           </div>
         </div>
       }
-
       <div className={styles.grizzliesHeadWrapper}>
         <div className={styles.grizzliesHead}>
           <NavLink to='/' onClick={() => clearFiltersAndCatalog()}>
             <img src={logoImg} alt="logo" className={styles.logoImg} />
           </NavLink>
+
           <div className={styles.searchBlock}>
             <input type="text" className={styles.searchInput} placeholder='Search' onChange={searchOnMainPage} />
             <div className={styles.searchLogo}></div>

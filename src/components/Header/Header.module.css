@@ -179,10 +179,11 @@ header{
         background-image: url(./../../assets/img/Header/menu-logo-white.png);
         height: 40px;
         width: 40px;
+        min-width: 40px;
         background-size: cover;
         cursor: pointer;
         margin-right: 10px;
-        /* transition: .5s; */
+        padding: 0;
     }
     .searchButtons{
         background-image: url(./../../assets/img/Header/search-white-icon.png);
