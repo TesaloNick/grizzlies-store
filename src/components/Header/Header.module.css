@@ -151,6 +151,10 @@ header{
     background-image: url(./../../assets/img/Header/search.svg);
 }
 
+.menuButtonsWrapper{
+    display: none;
+}
+
 @media (max-width: 1330px) {
     .nbaHead, .grizzliesHead{
       max-width: 95%;
@@ -175,14 +179,17 @@ header{
     .cart span{
         right: 0px;
     }
+    .menuButtonsWrapper{
+        display: block;
+    }
     .menuButtons{
         background-image: url(./../../assets/img/Header/menu-logo-white.png);
         height: 40px;
         width: 40px;
-        min-width: 40px;
+        min-width: 40px !important;
         background-size: cover;
         cursor: pointer;
-        margin-right: 10px;
+        margin-right: 10px !important; 
         padding: 0;
     }
     .searchButtons{
@@ -278,15 +285,16 @@ header{
     .nbaModalMenu{
         list-style-type: none;
     }
+    .nbaModalMenu li{
+        border-bottom: 1px solid #d8d8da;
+    }
     .nbaModalMenu a{
         display: block;
         text-decoration: none;
         color: #1b1b1b;
         font-size: 18px;
-        padding: 15px 10px;
-        border-bottom: 1px solid #d8d8da
     }
-    .nbaModalMenu a:first-of-type{
+    .nbaModalMenu li:first-of-type{
         border-top: 1px solid #d8d8da
     }
 }

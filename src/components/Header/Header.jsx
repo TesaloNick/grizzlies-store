@@ -125,7 +125,7 @@ export default function Header() {
         <div className={styles.nbaHeadWrapper}>
           <div className={styles.nbaHead}>
             <div className={styles.nbaHeadLeft}>
-              {isModalMenu ?
+              {/* {isModalMenu ?
                 <div className={styles.modalMenuContainer}>
                   <div className={styles.modalMenuBlockClose} onClick={() => {
                     clearFiltersAndCatalog();
@@ -163,24 +163,25 @@ export default function Header() {
                     </ul>
                   </div>
                   <div className={styles.close} onClick={() => closeModalMenu()}></div>
-                </div> :
-                <div>
-                  {['left'].map((anchor) => (
-                    <React.Fragment key={anchor}>
-                      {/* <div className={styles.menuButtons} onClick={() => toggleDrawer(anchor, true)}></div> */}
-                      <Button onClick={toggleDrawer(anchor, true)} className={styles.menuButtons}></Button>
-                      <Drawer
-                        anchor={anchor}
-                        open={state[anchor]}
-                        onClose={toggleDrawer(anchor, false)}
-                      >
-                        {list(anchor)}
-                      </Drawer>
-                    </React.Fragment>
-                  ))}
-                </div>
-                // <div className={styles.menuButtons} onClick={() => openModalMenu()}></div>
-              }
+                </div> : */}
+              <div className={styles.menuButtonsWrapper}>
+                {['left'].map((anchor) => (
+                  <React.Fragment key={anchor}>
+                    <Button onClick={toggleDrawer(anchor, true)} className={styles.menuButtons}></Button>
+                    <Drawer
+                      anchor={anchor}
+                      open={state[anchor]}
+                      onClose={toggleDrawer(anchor, false)}
+                      className={styles.nbaModalMenu}
+                    >
+                      {list(anchor)}
+                    </Drawer>
+                  </React.Fragment>
+                ))}
+                {/* <div className={styles.close} onClick={() => closeModalMenu()}></div> */}
+              </div>
+              {/* <div className={styles.menuButtons} onClick={() => openModalMenu()}></div>
+              } */}
               <NavLink to='/' onClick={() => clearFiltersAndCatalog()}><div className={styles.nbaLogo}></div></NavLink>
             </div>
             <div className={styles.nbaHeadRight}>
