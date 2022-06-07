@@ -6,6 +6,15 @@ import CatalogData from './../CatalogBlock/CatalogData'
 import Download from './../../../assets/img/Catalog/CatalogFilter/download.png'
 import Upload from './../../../assets/img/Catalog/CatalogFilter/upload.svg'
 import { NavLink } from 'react-router-dom'
+// ---
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+// ---
 
 export default function CatalogFilter() {
   const data = useContext(CartData)
@@ -54,13 +63,63 @@ export default function CatalogFilter() {
     const newShowFiltersBlock = isShowFiltersBlockModal.map((item, idx) => index === idx ? true : false)
     setIsShowFiltersBlockModal(newShowFiltersBlock)
   }
-
   const openModalFilters = () => { // открытие и закрытие модального окна с фильтрами
     setIsModalFilters(true)
   }
   const closeModalFilters = () => {
     setIsModalFilters(false)
   }
+
+  // ------------------------
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <Box
+      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+      role="presentation"
+      // onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        <h2>Filters</h2>
+        {data.filters.map((item, index) => (
+          isShowFiltersBlockModal[index] ?
+            <div className={styles.filterModalSeparateContainer}>
+              <div className={styles.filterSeparateContainerTitle} onClick={() => showFiltersBlockModal(index)}>
+                <h2>{item.title}</h2>
+                <img className={styles.filterArrowImg} src={Download} alt='Download' />
+              </div>
+              {item.filters.map(filter => (
+                <p onClick={() => {
+                  applyFilter(item, filter);
+                  toggleDrawer(anchor, false);
+                }}>{filter.name}</p>
+              ))}
+            </div> :
+            <div className={styles.filterModalSeparateContainer}>
+              <div className={styles.filterSeparateContainerTitle} onClick={() => closeFiltersBlockModal(index)}>
+                <h2>{item.title}</h2>
+                <img className={styles.filterArrowImg} src={Upload} alt='Upload' />
+              </div>
+            </div>
+        ))}
+      </List>
+    </Box >
+  );
+  // -----------------------
 
   return (
     <div className={styles.filterContainer}>
@@ -94,11 +153,30 @@ export default function CatalogFilter() {
             </div>
           </div>
       ))}
-      <div className={styles.filtersButton} onClick={() => openModalFilters()}>
+      <div className={styles.filtersButton}>
+        {['right'].map((anchor) => (
+          <React.Fragment key={anchor}>
+            <Button onClick={toggleDrawer(anchor, true)} className={styles.menuButtons}>
+              <div className={styles.filtersInsideImg}></div>
+              Filters
+            </Button>
+            <Drawer
+              anchor={anchor}
+              open={state[anchor]}
+              onClose={toggleDrawer(anchor, false)}
+              className={styles.nbaModalMenu}
+            >
+              {list(anchor)}
+            </Drawer>
+          </React.Fragment>
+        ))}
+        {/* <div className={styles.close} onClick={() => closeModalMenu()}></div> */}
+      </div>
+      {/* <div className={styles.filtersButton} onClick={() => openModalFilters()}>
         <div className={styles.filtersInsideImg}></div>
         Filters
-      </div>
-      {isModalFilters ?
+      </div> */}
+      {/* {isModalFilters ?
         <div className={styles.modalFiltersContainer}>
           <div className={styles.modalFiltersBlockClose} onClick={() => closeModalFilters()}></div>
           <div className={styles.modalFiltersBlock}>
@@ -125,9 +203,7 @@ export default function CatalogFilter() {
           <div className={styles.closeFiltersModal} onClick={() => closeModalFilters()}></div>
         </div> :
         <React.Fragment></React.Fragment>
-      }
-
-
+      } */}
     </div>
   )
 }
