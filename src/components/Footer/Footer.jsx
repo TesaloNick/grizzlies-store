@@ -59,12 +59,12 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.footerGreyWrapper}>
         <div className={styles.footerGrey}>
-          {footerGreyLinks.map(item => (
-            <div className={styles.footerLinksBlock}>
+          {footerGreyLinks.map((item, index) => (
+            <div key={index} className={styles.footerLinksBlock}>
               <h3 className={styles.footerTitleLink}>{item.title}</h3>
               <ul className={styles.footerListLinksGrey}>
                 {item.links.map(link => (
-                  <li><a href={link.link} className={styles.footerLink}>{link.name}</a></li>
+                  <li key={link.name}><a href={link.link} className={styles.footerLink}>{link.name}</a></li>
                 ))}
               </ul>
             </div>
@@ -73,7 +73,7 @@ export default function Footer() {
             <h3 className={styles.footerTitleLink}>Follow Us</h3>
             <div className={styles.socialLinksBlock}>
               {social.map(item => (
-                <a href={item.link}>
+                <a href={item.link} key={item.name}>
                   <img src={item.img} alt={item.name} className={styles.socialImg} />
                 </a>
               ))}
@@ -85,19 +85,17 @@ export default function Footer() {
         <div className={styles.footerWhite}>
           <ul className={styles.footerListLinksWhite}>
             {footerWhiteLinks.map(item => (
-              <li><a href={item.link} className={styles.footerLink}>{item.name}</a></li>
+              <li key={item.name}><a href={item.link} className={styles.footerLink}>{item.name}</a></li>
             ))}
           </ul>
           <p>© 2021, Fanatics, Inc. and/or its affiliated entities. All Rights Reserved. No portion of this site may be reproduced or duplicated without the express permission of Fanatics.</p>
           <div className={styles.paymentBlock} >
-            {payment.map(item => (
-              <img src={item} className={styles.paymentImg} />
+            {payment.map((item, index) => (
+              <img src={item} className={styles.paymentImg} alt={`Payment${index}`} key={index} />
             ))}
           </div>
         </div>
       </div>
-
-
     </footer>
   );
 }

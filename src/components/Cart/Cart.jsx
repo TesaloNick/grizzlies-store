@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useEffect } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import styles from './Cart.module.css'
 import close from './../../assets/img/Cart/close.svg'
 import { makeStyles } from '@material-ui/core/styles';
@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
+
   root: {
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
@@ -26,37 +27,31 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Cart() {
   const data = useContext(CartData)
-  const totalPriceRef = useRef(localStorage.getItem('cartProducts') ?  // значение общей суммы товаров в корзине
-    (JSON.parse(localStorage.getItem('cartProducts')).length > 0 ?
-      data.cartProducts.reduce(function (a, b) {
-        return a + b.price * b.quantity
-      }, 0).toFixed(2) :
-      '0') :
+  const totalPriceRef = useRef(data.cartProducts.length > 0 ?
+    data.cartProducts.reduce((a, b) => a + b.price * b.quantity, 0).toFixed(2) :
     '0'
   )
 
   const classes = useStyles();
-  const [state, setState] = React.useState({ size: '' });
+  const [state, setState] = useState({ size: '' });
 
   const handleChange = (event) => {
     setState({ size: event.target.value });
   };
 
   const deleteFromCart = (index) => {
-    data.cartProducts[index].quantity = 1
     const updateProductsCart = data.cartProducts.filter((item, idx) => index !== idx)
     data.setCartProducts(updateProductsCart)
     localStorage.setItem('cartProducts', JSON.stringify(updateProductsCart))
   }
 
   const changeQuantity = (event, index) => { // изменение количества товаров в корзине
-    const cartProducts = data.cartProducts.map((item, idx) => idx === index ? { ...item, quantity: +event.target.value } : item)
+    const cartProducts = data.cartProducts.map((item, idx) => idx === index ? { ...item, quantity: event.target.value === '' ? '' : +event.target.value } : item)
     data.setCartProducts(cartProducts)
-    localStorage.setItem('cartProducts', JSON.stringify(data.cartProducts))
-    totalPriceRef.current.innerHTML = data.cartProducts.reduce(function (a, b) {
-      return a + b.price * b.quantity
-    }, 0).toFixed(2)
+    localStorage.setItem('cartProducts', JSON.stringify(cartProducts))
+    totalPriceRef.current.innerHTML = cartProducts.reduce((a, b) => a + b.price * b.quantity, 0).toFixed(2)
   }
+
   const clearCart = () => {
     data.setCartProducts([])
     localStorage.setItem('cartProducts', JSON.stringify([]))
@@ -69,7 +64,7 @@ export default function Cart() {
         <div className={styles.cartBlock}>
           <div>
             {data.cartProducts.map((item, index) => (
-              <div className={styles.productBlock}>
+              <div className={styles.productBlock} key={item.title}>
                 <div className={styles.productImgBlock}>
                   <img src={item.img[0]} alt="" />
                 </div>
@@ -88,8 +83,9 @@ export default function Cart() {
                             name: 'size',
                             id: 'outlined-age-native-simple',
                           }}
+                          className={styles.sizeSelect}
                         >
-                          {item.size.map(size => <option value={size}>{size}</option>)}
+                          {item.size.map(size => <option value={size} key={size}>{size}</option>)}
                         </Select>
                       </FormControl> :
                       <p></p>
@@ -99,7 +95,7 @@ export default function Cart() {
                       value={item.quantity}
                       InputProps={{
                         inputProps: {
-                          min: 1
+                          min: 0
                         }
                       }}
                       label="Quantity"
@@ -110,7 +106,6 @@ export default function Cart() {
                       className={styles.input}
                     />
                   </div>
-
                 </div>
                 <div className={styles.productPriceBlock}>
                   <p>US$ <span>{item.price.toFixed(2)}</span></p>
@@ -142,7 +137,6 @@ export default function Cart() {
               <div className={styles.checkoutImg}></div>
               <p>Checkout</p>
             </div>
-
           </div>
         </div>
       </div>

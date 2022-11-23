@@ -30,9 +30,10 @@ nav a{
     background-color: #222c72;
 }
 
-@media (max-width: 1330px) {
+@media (max-width: 1230px) {
     .nav{
-      max-width: 95%;
+      max-width: 100%;
+      padding: 0px 15px;
     }
 }
 

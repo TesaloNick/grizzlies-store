@@ -1,19 +1,15 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
+import React, { useContext, useState } from 'react';
 import styles from './CatalogFilter.module.css'
 import CartData from '../../../context';
 import FiltersData from './FiltersData';
 import CatalogData from './../CatalogBlock/CatalogData'
 import Download from './../../../assets/img/Catalog/CatalogFilter/download.png'
 import Upload from './../../../assets/img/Catalog/CatalogFilter/upload.svg'
-import { NavLink } from 'react-router-dom'
 // ---
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
 // ---
 
 export default function CatalogFilter() {
@@ -97,7 +93,7 @@ export default function CatalogFilter() {
         <h2>Filters</h2>
         {data.filters.map((item, index) => (
           isShowFiltersBlockModal[index] ?
-            <div className={styles.filterModalSeparateContainer}>
+            <div className={styles.filterModalSeparateContainer} key={item.title}>
               <div className={styles.filterSeparateContainerTitle} onClick={() => showFiltersBlockModal(index)}>
                 <h2>{item.title}</h2>
                 <img className={styles.filterArrowImg} src={Download} alt='Download' />
@@ -106,10 +102,10 @@ export default function CatalogFilter() {
                 <p onClick={() => {
                   applyFilter(item, filter);
                   toggleDrawer(anchor, false);
-                }}>{filter.name}</p>
+                }} key={filter.name}>{filter.name}</p>
               ))}
             </div> :
-            <div className={styles.filterModalSeparateContainer}>
+            <div className={styles.filterModalSeparateContainer} key={item.title}>
               <div className={styles.filterSeparateContainerTitle} onClick={() => closeFiltersBlockModal(index)}>
                 <h2>{item.title}</h2>
                 <img className={styles.filterArrowImg} src={Upload} alt='Upload' />
@@ -126,13 +122,13 @@ export default function CatalogFilter() {
       <div className={styles.сlearFilters} onClick={() => сlearFilters()}>Сlear filters</div>
       {data.filters.map((item, index) => (
         isShowFiltersBlock[index] ?
-          <div className={styles.filterSeparateContainer}>
+          <div className={styles.filterSeparateContainer} key={item.title}>
             <div className={styles.filterSeparateContainerTitle}>
               <h2>{item.title}</h2>
               <img className={styles.filterArrowImg} onClick={() => showFiltersBlock(index)} src={Download} alt='Download' />
             </div>
             {item.filters.map(filter => (
-              <div className={styles.filterSeparate}>
+              <div className={styles.filterSeparate} key={filter.name}>
                 <input
                   type="radio"
                   id={filter.name}
@@ -142,11 +138,11 @@ export default function CatalogFilter() {
                   onChange={() => applyFilter(item, filter)}
                   checked={filter.isChecked}
                 />
-                <label for={filter.name} className={styles.filterLabel}>{filter.name}</label>
+                <label htmlFor={filter.name} className={styles.filterLabel}>{filter.name}</label>
               </div>
             ))}
           </div> :
-          <div className={styles.filterSeparateContainer}>
+          <div className={styles.filterSeparateContainer} key={item.title}>
             <div className={styles.filterSeparateContainerTitle}>
               <h2>{item.title}</h2>
               <img className={styles.filterArrowImg} onClick={() => closeFiltersBlock(index)} src={Upload} alt='Upload' />
@@ -170,40 +166,7 @@ export default function CatalogFilter() {
             </Drawer>
           </React.Fragment>
         ))}
-        {/* <div className={styles.close} onClick={() => closeModalMenu()}></div> */}
       </div>
-      {/* <div className={styles.filtersButton} onClick={() => openModalFilters()}>
-        <div className={styles.filtersInsideImg}></div>
-        Filters
-      </div> */}
-      {/* {isModalFilters ?
-        <div className={styles.modalFiltersContainer}>
-          <div className={styles.modalFiltersBlockClose} onClick={() => closeModalFilters()}></div>
-          <div className={styles.modalFiltersBlock}>
-            <h2>Filters</h2>
-            {data.filters.map((item, index) => (
-              isShowFiltersBlockModal[index] ?
-                <div className={styles.filterModalSeparateContainer}>
-                  <div className={styles.filterSeparateContainerTitle} onClick={() => showFiltersBlockModal(index)}>
-                    <h2>{item.title}</h2>
-                    <img className={styles.filterArrowImg} src={Download} alt='Download' />
-                  </div>
-                  {item.filters.map(filter => (
-                    <p onClick={() => applyFilter(item, filter)}>{filter.name}</p>
-                  ))}
-                </div> :
-                <div className={styles.filterModalSeparateContainer}>
-                  <div className={styles.filterSeparateContainerTitle} onClick={() => closeFiltersBlockModal(index)}>
-                    <h2>{item.title}</h2>
-                    <img className={styles.filterArrowImg} src={Upload} alt='Upload' />
-                  </div>
-                </div>
-            ))}
-          </div>
-          <div className={styles.closeFiltersModal} onClick={() => closeModalFilters()}></div>
-        </div> :
-        <React.Fragment></React.Fragment>
-      } */}
     </div>
   )
 }

@@ -1,8 +1,7 @@
-import React, { useContext, useState, useRef, useEffect } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import styles from './CatalogBlock.module.css'
-import { NavLink, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import CartData from '../../../context';
-import CatalogData from './CatalogData'
 
 
 export default function CatalogBlock(props) {
@@ -67,7 +66,7 @@ export default function CatalogBlock(props) {
     <div className={styles.catalogBlock}>
 
       {props.catalog.map((item, index) => (
-        <div className={styles.product}>
+        <div className={styles.product} key={index}>
           <img src={item.img[0]} className={styles.productImg} alt={item.title} onClick={() => openModalWindow(item)} />
           <div>
             <p className={styles.price}>US$<span>{item.price.toFixed(2)}</span></p>
@@ -109,7 +108,7 @@ export default function CatalogBlock(props) {
                   {isCloseModal ?
                     <div className={styles.modalLinksAfterBuying}>
                       <a onClick={() => closeModalWindow()}>Return to catalog</a>
-                      <NavLink to='/cart'>Go to cart</NavLink>
+                      <Link to='/cart'>Go to cart</Link>
                     </div> :
                     <React.Fragment></React.Fragment>
                   }

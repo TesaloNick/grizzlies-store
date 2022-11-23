@@ -1,7 +1,4 @@
 .footer{
-    /* position: absolute;
-    bottom: 0;
-    width: 100%; */
 }
 .footerGreyWrapper{
     background-color: #f4f5f5;
@@ -83,9 +80,10 @@
     margin: 0 10px;
 }
 
-@media (max-width: 1330px) {
+@media (max-width: 1230px) {
     .footerGrey, .footerWhite{
-        width: 95%;
+        max-width: 100%;
+        padding: 0 15px;
     }
 }
 

@@ -1,39 +1,25 @@
-import React, { useContext, useEffect, useState } from 'react';
-// import {BrowserRouter, Switch, Route, NavLink} from 'react-router-dom'
+import React, { useContext, useState, useRef } from 'react';
 import styles from './Header.module.css'
 import logoImg from './../../assets/img/Header/logo.svg'
-import nbaLogo from './../../assets/img/Header/nbalogo.svg'
-import search from './../../assets/img/Header/search.svg'
-import cartImg from './../../assets/img/Header/cart.png'
+import cartImg from './../../assets/img/Header/cart1.png'
 import Nav from './Nav/Nav'
-import { NavLink } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import CartData from './../../context';
 import CatalogData from './../Catalog/CatalogBlock/CatalogData'
 import FiltersData from './../Catalog/CatalogFilter/FiltersData'
+import ModalMenu from './ModalMenu/ModalMenu';
 // ---
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-// ---
-
-
 
 export default function Header() {
   const data = useContext(CartData)
   const [isSearch, setIsSearch] = useState(false)
-  const [isModalMenu, setIsModalMenu] = useState(false)
+  const inputSearchRef = useRef()
+  const { push } = useHistory()
 
   const exitFromAccount = () => {
     data.setLoginState(false)
+    localStorage.setItem('loginState', JSON.stringify(false))
   }
-
-  useEffect(() => {
-    localStorage.setItem('loginState', JSON.stringify(data.loginState))
-  }, [exitFromAccount])
 
   const searchOnMainPage = (event) => {
     const searchText = event.target.value;
@@ -41,6 +27,8 @@ export default function Header() {
       data.setCatalogData(CatalogData)
       return
     }
+
+    push('/')
     data.setCatalogData(CatalogData.filter(item => item.title.toLowerCase().includes(searchText.toLowerCase())))
   }
 
@@ -53,172 +41,55 @@ export default function Header() {
 
   const openSearchInput = () => { // открытие и закрытие поисковой строки
     setIsSearch(true)
+    inputSearchRef.current.focus()
   }
   const closeSearchInput = () => {
     setIsSearch(false)
     data.setCatalogData(CatalogData)
   }
 
-  const openModalMenu = () => { // открытие и закрытие модального меню
-    setIsModalMenu(true)
-  }
-  const closeModalMenu = () => {
-    setIsModalMenu(false)
-  }
-
-  // ------------------------
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
-  });
-
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-
-    setState({ ...state, [anchor]: open });
-  };
-
-  const list = (anchor) => (
-    <Box
-      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List>
-        <NavLink to='/' onClick={() => {
-          clearFiltersAndCatalog();
-          closeModalMenu();
-        }}>
-          <div className={styles.nbaModalLogo}></div>
-        </NavLink>
-        {['Men', 'Women', 'Kids', 'Jersey', 'T-Shirts', 'Footwear', 'Accesories'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <NavLink to={text}>
-                <ListItemText primary={text} />
-              </NavLink>
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box >
-  );
-  // -----------------------
-
   return (
-    <header>
-      {isSearch ?
-        <div className={styles.searchBlockLittle}>
-          <input type="text" className={styles.searchInputLittle} placeholder='Search' onChange={searchOnMainPage} />
-          <div className={styles.searchLittleClose} onClick={() => closeSearchInput()}></div>
-        </div> :
-        <div className={styles.nbaHeadWrapper}>
-          <div className={styles.nbaHead}>
-            <div className={styles.nbaHeadLeft}>
-              {/* {isModalMenu ?
-                <div className={styles.modalMenuContainer}>
-                  <div className={styles.modalMenuBlockClose} onClick={() => {
-                    clearFiltersAndCatalog();
-                    closeModalMenu();
-                  }}></div>
-                  <div className={styles.modalMenuBlock}>
-                    <NavLink to='/' onClick={() => {
-                      clearFiltersAndCatalog();
-                      closeModalMenu();
-                    }}>
-                      <div className={styles.nbaModalLogo}></div>
-                    </NavLink>
-                    <ul className={styles.nbaModalMenu}>
-                      <NavLink to='/men'>
-                        <li onClick={() => closeModalMenu()}>Men</li>
-                      </NavLink>
-                      <NavLink to='/women'>
-                        <li onClick={() => closeModalMenu()}>Women</li>
-                      </NavLink>
-                      <NavLink to='/kids'>
-                        <li onClick={() => closeModalMenu()}>Kids</li>
-                      </NavLink>
-                      <NavLink to='/jersey'>
-                        <li onClick={() => closeModalMenu()}>Jersey</li>
-                      </NavLink>
-                      <NavLink to='/t-shirts'>
-                        <li onClick={() => closeModalMenu()}>T-Shirts</li>
-                      </NavLink>
-                      <NavLink to='/footwear'>
-                        <li onClick={() => closeModalMenu()}>Footwear</li>
-                      </NavLink>
-                      <NavLink to='/accesories'>
-                        <li onClick={() => closeModalMenu()}>Accesories</li>
-                      </NavLink>
-                    </ul>
-                  </div>
-                  <div className={styles.close} onClick={() => closeModalMenu()}></div>
-                </div> : */}
-              <div className={styles.menuButtonsWrapper}>
-                {['left'].map((anchor) => (
-                  <React.Fragment key={anchor}>
-                    <Button onClick={toggleDrawer(anchor, true)} className={styles.menuButtons}></Button>
-                    <Drawer
-                      anchor={anchor}
-                      open={state[anchor]}
-                      onClose={toggleDrawer(anchor, false)}
-                      className={styles.nbaModalMenu}
-                    >
-                      {list(anchor)}
-                    </Drawer>
-                  </React.Fragment>
-                ))}
-                {/* <div className={styles.close} onClick={() => closeModalMenu()}></div> */}
-              </div>
-              {/* <div className={styles.menuButtons} onClick={() => openModalMenu()}></div>
-              } */}
-              <NavLink to='/' onClick={() => clearFiltersAndCatalog()}><div className={styles.nbaLogo}></div></NavLink>
-            </div>
-            <div className={styles.nbaHeadRight}>
-              {data.loginState ?
-                <ul className={styles.registerButtons}>
-                  <NavLink to='/account'>
-                    <li>My account</li>
-                  </NavLink>
-                  <li onClick={() => exitFromAccount()}>Exit</li>
-                </ul> :
-                <ul className={styles.registerButtons}>
-                  <NavLink to='/sign-up'>
-                    <li>Sign Up</li>
-                  </NavLink>
-                  <NavLink to='/log-in'>
-                    <li>Log In</li>
-                  </NavLink>
-                </ul>
-              }
-              <div className={styles.searchButtons} onClick={() => openSearchInput()}></div>
-              {data.loginState ?
-                <NavLink to='/account'>
-                  <div className={styles.accountButtons}></div>
-                </NavLink> :
-                <NavLink to='/log-in'>
-                  <div className={styles.accountButtons}></div>
-                </NavLink>
-              }
-              <NavLink to='/cart' className={styles.cart}>
-                <img src={cartImg} alt="cart-image" className={styles.cartImg} />
-                <span>{data.cartProducts.length}</span>
-              </NavLink>
-            </div>
+    <header className={styles.header}>
+      <div className={styles.nbaHeadWrapper}>
+        {!isSearch && <div className={styles.nbaHead}>
+          <div className={styles.nbaHeadLeft}>
+            <ModalMenu />
+            <Link to='/' onClick={() => clearFiltersAndCatalog()}><div className={styles.nbaLogo}></div></Link>
+          </div>
+          <div className={styles.nbaHeadRight}>
+            {data.loginState ?
+              <ul className={styles.registerButtons}>
+                <Link to='/account'><li>My account</li></Link>
+                <li onClick={() => exitFromAccount()}>Exit</li>
+              </ul> :
+              <ul className={styles.registerButtons}>
+                <Link to='/sign-up'><li>Sign Up</li></Link>
+                <Link to='/log-in'><li>Log In</li></Link>
+              </ul>
+            }
+            <div className={styles.searchButtons} onClick={() => openSearchInput()}></div>
+            {data.loginState ?
+              <Link to='/account'><div className={styles.accountButtons}></div></Link> :
+              <Link to='/log-in'><div className={styles.accountButtons}></div></Link>
+            }
+            <Link to='/cart' className={styles.cart}>
+              <img src={cartImg} alt="cart" className={styles.cartImg} />
+              <span>{data.cartProducts.length}</span>
+            </Link>
           </div>
         </div>
-      }
+        }
+        <div className={isSearch ?
+          `${styles.searchBlockLittle} ${styles.active}` :
+          styles.searchBlockLittle
+        }>
+          <input type="text" className={styles.searchInputLittle} placeholder='Search' onChange={searchOnMainPage} ref={inputSearchRef} />
+          <div className={styles.searchLittleClose} onClick={() => closeSearchInput()}></div>
+        </div>
+      </div>
       <div className={styles.grizzliesHeadWrapper}>
         <div className={styles.grizzliesHead}>
-          <NavLink to='/' onClick={() => clearFiltersAndCatalog()}>
-            <img src={logoImg} alt="logo" className={styles.logoImg} />
-          </NavLink>
-
+          <Link to='/' onClick={() => clearFiltersAndCatalog()}><img src={logoImg} alt="logo" className={styles.logoImg} /></Link>
           <div className={styles.searchBlock}>
             <input type="text" className={styles.searchInput} placeholder='Search' onChange={searchOnMainPage} />
             <div className={styles.searchLogo}></div>
