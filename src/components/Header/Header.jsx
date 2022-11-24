@@ -7,7 +7,7 @@ import { Link, useHistory } from 'react-router-dom'
 import CartData from './../../context';
 import CatalogData from './../Catalog/CatalogBlock/CatalogData'
 import FiltersData from './../Catalog/CatalogFilter/FiltersData'
-import ModalMenu from './ModalMenu/ModalMenu';
+import ModalDrawer from './ModalDrawer/ModalDrawer';
 // ---
 
 export default function Header() {
@@ -53,7 +53,7 @@ export default function Header() {
       <div className={styles.nbaHeadWrapper}>
         {!isSearch && <div className={styles.nbaHead}>
           <div className={styles.nbaHeadLeft}>
-            <ModalMenu />
+            <ModalDrawer />
             <Link to='/' onClick={() => clearFiltersAndCatalog()}><div className={styles.nbaLogo}></div></Link>
           </div>
           <div className={styles.nbaHeadRight}>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import styles from './ModalMenu.module.css'
+import styles from './ModalDrawer.module.css'
 
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
@@ -10,12 +10,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 
-export default function ModalMenu() {
+export default function ModalDrawer() {
   const [state, setState] = useState({
-    // top: false,
     left: false,
-    // bottom: false,
-    // right: false,
+    right: false,
   });
 
   const toggleDrawer = (anchor, open) => (event) => {

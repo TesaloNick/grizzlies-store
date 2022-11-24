@@ -4,7 +4,6 @@ import CartData from '../../../context';
 import FiltersData from './FiltersData';
 import CatalogData from './../CatalogBlock/CatalogData'
 import Download from './../../../assets/img/Catalog/CatalogFilter/download.png'
-import Upload from './../../../assets/img/Catalog/CatalogFilter/upload.svg'
 // ---
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -32,7 +31,7 @@ export default function CatalogFilter() {
     const filtersTitleArray1 = filtersTitleArray.length > 0 ? [...filtersTitleArray, filtersTitle] : [...filtersTitle]
     const catalogGroupFiltered = catalogFiltered.filter(item => item[filtersTitle].includes(filter.name))
     data.setCatalogData(catalogGroupFiltered)
-    setTimeout(() => setIsModalFilters(false), 200)
+    // setTimeout(() => setIsModalFilters(false), 200)
   }
 
   const сlearFilters = () => {
@@ -42,35 +41,29 @@ export default function CatalogFilter() {
     localStorage.setItem('catalogData', JSON.stringify(CatalogData))
   }
 
-  const showFiltersBlock = (index) => {
-    const newShowFiltersBlock = isShowFiltersBlock.map((item, idx) => index === idx ? false : item)
-    setIsShowFiltersBlock(newShowFiltersBlock)
-  }
-  const closeFiltersBlock = (index) => {
-    const newShowFiltersBlock = isShowFiltersBlock.map((item, idx) => index === idx ? true : item)
-    setIsShowFiltersBlock(newShowFiltersBlock)
+  const toggleFiltersBlock = () => {
+    return {
+      close: (index) => setIsShowFiltersBlock(isShowFiltersBlock.map((item, idx) => index === idx ? false : item)),
+      show: (index) => setIsShowFiltersBlock(isShowFiltersBlock.map((item, idx) => index === idx ? true : item)),
+    }
   }
 
-  const showFiltersBlockModal = (index) => {
-    const newShowFiltersBlock = isShowFiltersBlockModal.map((item, idx) => index === idx ? false : item)
-    setIsShowFiltersBlockModal(newShowFiltersBlock)
+  const toggleFiltersBlockModal = () => {
+    return {
+      close: (index) => setIsShowFiltersBlockModal(isShowFiltersBlockModal.map((item, idx) => index === idx ? false : item)),
+      show: (index) => setIsShowFiltersBlockModal(isShowFiltersBlockModal.map((item, idx) => index === idx ? true : false)),
+    }
   }
-  const closeFiltersBlockModal = (index) => {
-    const newShowFiltersBlock = isShowFiltersBlockModal.map((item, idx) => index === idx ? true : false)
-    setIsShowFiltersBlockModal(newShowFiltersBlock)
-  }
-  const openModalFilters = () => { // открытие и закрытие модального окна с фильтрами
-    setIsModalFilters(true)
-  }
-  const closeModalFilters = () => {
-    setIsModalFilters(false)
-  }
+
+  // const openModalFilters = () => { // открытие и закрытие модального окна с фильтрами
+  //   setIsModalFilters(true)
+  // }
+  // const closeModalFilters = () => {
+  //   setIsModalFilters(false)
+  // }
 
   // ------------------------
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
+  const [state, setState] = useState({
     right: false,
   });
 
@@ -78,41 +71,44 @@ export default function CatalogFilter() {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-
     setState({ ...state, [anchor]: open });
   };
+
+  const filtersHead = (item, index, isShow, toggle) => {
+    return (
+      <div className={styles.filterSeparateContainerTitle}
+        onClick={isShow[index] ?
+          () => toggle.close(index) :
+          () => toggle.show(index)}
+      >
+        <h2>{item.title}</h2>
+        <img className={isShow[index] ? styles.filterArrowImgUp : styles.filterArrowImgDown} src={Download} alt='Download' />
+      </div>
+    )
+  }
 
   const list = (anchor) => (
     <Box
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
       role="presentation"
-      // onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
+
     >
-      <List>
-        <h2>Filters</h2>
+      <List className={styles.modalFiltersBlock}>
         {data.filters.map((item, index) => (
-          isShowFiltersBlockModal[index] ?
-            <div className={styles.filterModalSeparateContainer} key={item.title}>
-              <div className={styles.filterSeparateContainerTitle} onClick={() => showFiltersBlockModal(index)}>
-                <h2>{item.title}</h2>
-                <img className={styles.filterArrowImg} src={Download} alt='Download' />
-              </div>
+          <div className={styles.filterModalSeparateContainer} key={item.title}>
+            {filtersHead(item, index, isShowFiltersBlockModal, toggleFiltersBlockModal(index))}
+            <div className={isShowFiltersBlockModal[index] ? styles.modalFilterWrapperActive : styles.modalFilterWrapper}>
               {item.filters.map(filter => (
-                <p onClick={() => {
-                  applyFilter(item, filter);
-                  toggleDrawer(anchor, false);
-                }} key={filter.name}>{filter.name}</p>
+                <p className={styles.modalFiltersItem} onClick={() => applyFilter(item, filter)} key={filter.name}>
+                  <span onClick={toggleDrawer(anchor, false)}>{filter.name}</span>
+                </p>
               ))}
-            </div> :
-            <div className={styles.filterModalSeparateContainer} key={item.title}>
-              <div className={styles.filterSeparateContainerTitle} onClick={() => closeFiltersBlockModal(index)}>
-                <h2>{item.title}</h2>
-                <img className={styles.filterArrowImg} src={Upload} alt='Upload' />
-              </div>
             </div>
-        ))}
-      </List>
+          </div>
+        ))
+        }
+      </List >
     </Box >
   );
   // -----------------------
@@ -121,33 +117,23 @@ export default function CatalogFilter() {
     <div className={styles.filterContainer}>
       <div className={styles.сlearFilters} onClick={() => сlearFilters()}>Сlear filters</div>
       {data.filters.map((item, index) => (
-        isShowFiltersBlock[index] ?
-          <div className={styles.filterSeparateContainer} key={item.title}>
-            <div className={styles.filterSeparateContainerTitle}>
-              <h2>{item.title}</h2>
-              <img className={styles.filterArrowImg} onClick={() => showFiltersBlock(index)} src={Download} alt='Download' />
+        <div className={styles.filterSeparateContainer} key={item.title}>
+          {filtersHead(item, index, isShowFiltersBlock, toggleFiltersBlock(index))}
+          {isShowFiltersBlock[index] && item.filters.map(filter => (
+            <div className={styles.filterSeparate} key={filter.name}>
+              <input
+                type="radio"
+                id={filter.name}
+                name={item.title}
+                value={filter.name}
+                className={styles.filterRadioButton}
+                onChange={() => applyFilter(item, filter)}
+                checked={filter.isChecked}
+              />
+              <label htmlFor={filter.name} className={styles.filterLabel}>{filter.name}</label>
             </div>
-            {item.filters.map(filter => (
-              <div className={styles.filterSeparate} key={filter.name}>
-                <input
-                  type="radio"
-                  id={filter.name}
-                  name={item.title}
-                  value={filter.name}
-                  className={styles.filterRadioButton}
-                  onChange={() => applyFilter(item, filter)}
-                  checked={filter.isChecked}
-                />
-                <label htmlFor={filter.name} className={styles.filterLabel}>{filter.name}</label>
-              </div>
-            ))}
-          </div> :
-          <div className={styles.filterSeparateContainer} key={item.title}>
-            <div className={styles.filterSeparateContainerTitle}>
-              <h2>{item.title}</h2>
-              <img className={styles.filterArrowImg} onClick={() => closeFiltersBlock(index)} src={Upload} alt='Upload' />
-            </div>
-          </div>
+          ))}
+        </div>
       ))}
       <div className={styles.filtersButton}>
         {['right'].map((anchor) => (

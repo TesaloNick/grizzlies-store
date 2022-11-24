@@ -14,7 +14,7 @@ import FiltersData from './components/Catalog/CatalogFilter/FiltersData'
 
 function App() {
   const [cartProducts, setCartProducts] = useState(JSON.parse(localStorage.getItem('cartProducts')) || [])
-  const [users, setUsers] = React.useState(JSON.parse(localStorage.getItem('usersData')) || [])
+  const [users, setUsers] = useState(JSON.parse(localStorage.getItem('usersData')) || [])
   const [loginState, setLoginState] = useState(JSON.parse(localStorage.getItem('loginState')) || false)
   if (!localStorage.getItem('catalogData')) localStorage.setItem('catalogData', JSON.stringify(CatalogData))
   const [catalogData, setCatalogData] = useState(JSON.parse(localStorage.getItem('catalogData')))
