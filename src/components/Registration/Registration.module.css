@@ -6,12 +6,17 @@
     background-color: #fff;
     max-width: 1200px;
     margin: auto;
+    display: flex;
+    justify-content: center;
 }
 .registrationBlock{
     width: 400px;
-    margin: 40px auto;
+    margin: 20px 0;
     padding: 40px;
     border: 3px solid black;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 .title{
     color: #242424;
@@ -19,7 +24,6 @@
 }
 .title + p{
     color: #686868;
-    padding: 10px 0;
 }
 .registrationRoute{
     color: #686868;
@@ -28,7 +32,6 @@
     display: block;
     padding: 13px;
     width: 100%;
-    margin: 15px 0;
     border: 1px solid #b5b5b5;
 }
 .inputRegistration::placeholder{
@@ -36,7 +39,6 @@
     color: #b5b5b5;
     font-style: italic;
 }
-
 .sendRegistrationInfo{
     cursor: pointer;
     width: 100%;
@@ -45,10 +47,8 @@
     padding: 13px 0;
     border-radius: 5px;
     display: block;
-    margin: 10px auto;
     border: 0px;
     background-color: #e61a4d;
-    margin-top: 40px;
 }
 .sendRegistrationInfo:hover{
     background-color: #d01745;
@@ -62,15 +62,16 @@
     color: green;
 }
 
-@media (max-width: 13300px) {
+@media (max-width: 1230px) {
     .form{
-        width: 95%;
+        max-width: 100%;
+        padding: 0 15px;
     }
 }
 
 @media (max-width: 650px) {
     .registrationBlock{
-        margin: 83px auto 20px;
+        margin: 50px auto 20px;
     }
 }
 @media (max-width: 450px) {

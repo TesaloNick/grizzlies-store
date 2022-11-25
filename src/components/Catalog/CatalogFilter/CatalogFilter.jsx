@@ -15,8 +15,6 @@ export default function CatalogFilter() {
   const data = useContext(CartData)
   const [isShowFiltersBlock, setIsShowFiltersBlock] = useState(new Array(FiltersData.length).fill(true))
   const [isShowFiltersBlockModal, setIsShowFiltersBlockModal] = useState(new Array(FiltersData.length).fill(false))
-  let filtersTitleArray = []
-  const [isModalFilters, setIsModalFilters] = useState(false) // открытие модального окна с фильтрами
 
   const applyFilter = (allFilters, filter) => {
     const filterGroup = data.filters.find(item => allFilters.title === item.title)
@@ -28,10 +26,8 @@ export default function CatalogFilter() {
 
     const filtersTitle = allFilters.title.replace(/\s+/g, '')[0].toLowerCase() + allFilters.title.replace(/\s+/g, '').slice(1)
     const catalogFiltered = CatalogData.filter(item => item[filtersTitle].length > 0)
-    const filtersTitleArray1 = filtersTitleArray.length > 0 ? [...filtersTitleArray, filtersTitle] : [...filtersTitle]
     const catalogGroupFiltered = catalogFiltered.filter(item => item[filtersTitle].includes(filter.name))
     data.setCatalogData(catalogGroupFiltered)
-    // setTimeout(() => setIsModalFilters(false), 200)
   }
 
   const сlearFilters = () => {
@@ -54,14 +50,6 @@ export default function CatalogFilter() {
       show: (index) => setIsShowFiltersBlockModal(isShowFiltersBlockModal.map((item, idx) => index === idx ? true : false)),
     }
   }
-
-  // const openModalFilters = () => { // открытие и закрытие модального окна с фильтрами
-  //   setIsModalFilters(true)
-  // }
-  // const closeModalFilters = () => {
-  //   setIsModalFilters(false)
-  // }
-
   // ------------------------
   const [state, setState] = useState({
     right: false,
@@ -92,7 +80,6 @@ export default function CatalogFilter() {
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
       role="presentation"
       onKeyDown={toggleDrawer(anchor, false)}
-
     >
       <List className={styles.modalFiltersBlock}>
         {data.filters.map((item, index) => (
